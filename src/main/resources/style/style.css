@@ -5,19 +5,39 @@
 }
 
 .root {
-    /*-fx-border-color: RED;*/
-    /*-fx-background-image: url('/assets/images/four-humours-background.png');*/
     -fx-background-size: cover;
     -fx-font-family: 'JSL BLackletter';
-    /*-fx-font-family: 'LudovicoWoodcut';*/
+    -fx-font-size: 18;
+}
+
+BorderPane {
+    -fx-padding: 10;
+}
+
+VBox {
+    -fx-border-color: red;
+    -fx-spacing: 10;
+    -fx-padding: 10;
+    -fx-alignment: CENTER;
+}
+
+HBox {
+    -fx-border-color: blue;
+    -fx-spacing: 10;
+    -fx-alignment: CENTER;
+    -fx-padding: 10;
+}
+
+TextField {
+    -fx-alignment: CENTER;
+    -fx-pref-column-count: 5;
 }
 
 .start-menu-root {
     /*-fx-border-color: GREEN;*/
     -fx-background-image: url('/assets/images/blank-marquee-transparent-viewport.png');
-    -fx-background-size: cover;
-    -fx-alignment: CENTER;
-    -fx-spacing: 10;
+    -fx-background-size: stretch;
+    -fx-padding: 100, 100, 100, 100;
 }
 
 .game-view-root {
@@ -26,13 +46,12 @@
 }
 
 .header {
-    -fx-font-size: 64;
+    -fx-font-size: 32;
     -fx-font-weight: BOLD;
     -fx-text-fill: BLACK;
 }
 
 .button {
-    -fx-font-size: 36;
     -fx-text-fill: WHITE;
     -fx-alignment: top-right ;
     -fx-text-alignment: right;
