@@ -3,9 +3,7 @@ package com.javasmithy;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -18,8 +16,9 @@ import javafx.scene.control.Button;
 import javafx.util.Duration;
 import javafx.util.converter.NumberStringConverter;
 
-import static com.javasmithy.widgetsfx.ButtonWidgets.createButtonWithAction;
-import static com.javasmithy.widgetsfx.ButtonWidgets.createExitButton;
+import java.util.function.Supplier;
+
+import static com.javasmithy.widgetsfx.ButtonWidgets.*;
 
 public class ApothekeViewBuilder implements Builder<Region> {
 
@@ -38,15 +37,13 @@ public class ApothekeViewBuilder implements Builder<Region> {
         return root;
     }
 
-
-    private EventHandler<ActionEvent> switchWindowEventHandler(Node destination){
+    private EventHandler<ActionEvent> switchWindowEventHandler(Supplier<Node> destination){
         return e -> {
             this.root.getChildren().clear();
-            this.root.getChildren().add(destination);
-          resizeWindow();
+            this.root.getChildren().add(destination.get());
+            resizeWindow();
         };
     }
-
     private void resizeWindow(){
         Platform.runLater( () -> {
             this.root.getScene().getWindow().sizeToScene();
@@ -55,14 +52,16 @@ public class ApothekeViewBuilder implements Builder<Region> {
 
     private Node createStartMenu(){
         VBox menuRoot = new VBox();
-        VBox.setVgrow(menuRoot, Priority.ALWAYS);
         menuRoot.getStyleClass().add("start-menu-root");
         Label startMenuHeader = new Label("Apotheke");
         startMenuHeader.getStyleClass().add("header");
-        Button startButton = createButtonWithAction("Start Game", switchWindowEventHandler(createPlayerCreationView()));
         Button optionsButton = new Button("Options");
         Button exitButton = createExitButton("Exit Game");
-        menuRoot.getChildren().addAll(startMenuHeader, startButton, optionsButton, exitButton);
+        menuRoot.getChildren().addAll(
+                startMenuHeader,
+                createButtonWithAction("Start Game", switchWindowEventHandler(this::createPlayerCreationView)),
+                optionsButton,
+                exitButton);
         return menuRoot;
     }
 
@@ -70,7 +69,7 @@ public class ApothekeViewBuilder implements Builder<Region> {
         return new VBox(
                new HBox( createPortraitSelector(),
                             createSkillUpdater()),
-                createButtonWithAction("Submit", switchWindowEventHandler(createGameView()))
+                createButtonWithAction("Submit", switchWindowEventHandler(this::createGameView))
         );
     }
 
@@ -147,49 +146,45 @@ public class ApothekeViewBuilder implements Builder<Region> {
 
     private Node createGameView(){
         VBox menuRoot = new VBox();
-        VBox.setVgrow(menuRoot, Priority.ALWAYS);
         menuRoot.getStyleClass().add("start-menu-root");
-        Button mainMenuButton = new Button("Main Menu");
-        mainMenuButton.setOnAction( e -> {
-                this.root.getChildren().clear();
-                this.root.getChildren().add(createStartMenu());
-                resizeWindow();
-        });
-        menuRoot.getChildren().add(
-                mainMenuButton
-                //createButtonWithAction("Character Creation", switchWindowEventHandler(createPlayerCreationView()))
-                //createExitButton("Exit")
+        menuRoot.getChildren().addAll(
+                createButtonWithAction("Garden", switchWindowEventHandler(this::createCultivationView)),
+                createButtonWithAction("Workbench", switchWindowEventHandler(this::createWorkBenchView)),
+                createButtonWithAction("Laboratory", switchWindowEventHandler(this::createLaboratoryView)),
+                createButtonWithAction("Market", switchWindowEventHandler(this::createMarketView)),
+                createButtonWithAction("Clients", switchWindowEventHandler(this::createClientsView)),
+                createButtonWithAction("Main Menu", switchWindowEventHandler(this::createStartMenu))
         );
         return menuRoot;
     }
-//    private Node createGameView(){
-//        return new VBox(
-//                //createButtonWithAction("Garden", switchWindowEventHandler(createCultivationView())),
-//                //createButtonWithAction("Workbench", switchWindowEventHandler(createWorkBenchView())),
-//                //createButtonWithAction("Laboratory", switchWindowEventHandler(createLaboratoryView())),
-//                //createButtonWithAction("Market", switchWindowEventHandler(createMarketView())),
-//                //createButtonWithAction("Clients", switchWindowEventHandler(createClientsView())),
-//                createButtonWithAction("Main Menu", switchWindowEventHandler(createStartMenu()))
-//        );
-//    }
-//
-//    private Node createCultivationView() {
-//        return new VBox();
-//    }
-//
-//    private Node createClientsView() {
-//        return new VBox();
-//    }
-//
-//    private Node createMarketView() {
-//        return new VBox();
-//    }
-//
-//    private Node createLaboratoryView() {
-//        return new VBox();
-//    }
-//
-//    private Node createWorkBenchView() {
-//        return new VBox();
-//    }
+
+    private Node createCultivationView() {
+        return new VBox(
+                createButtonWithAction("Return", switchWindowEventHandler(this::createGameView))
+        );
+    }
+
+    private Node createClientsView() {
+        return new VBox(
+                createButtonWithAction("Return", switchWindowEventHandler(this::createGameView))
+        );
+    }
+
+    private Node createMarketView() {
+        return new VBox(
+                createButtonWithAction("Return", switchWindowEventHandler(this::createGameView))
+        );
+    }
+
+    private Node createLaboratoryView() {
+        return new VBox(
+                createButtonWithAction("Return", switchWindowEventHandler(this::createGameView))
+        );
+    }
+
+    private Node createWorkBenchView() {
+        return new VBox(
+                createButtonWithAction("Return", switchWindowEventHandler(this::createGameView))
+        );
+    }
 }
