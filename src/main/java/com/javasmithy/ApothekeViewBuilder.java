@@ -1,5 +1,6 @@
 package com.javasmithy;
 
+import com.javasmithy.skills.ApothekeSkill;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
@@ -16,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.util.Duration;
 import javafx.util.converter.NumberStringConverter;
 
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import static com.javasmithy.widgetsfx.ButtonWidgets.*;
@@ -24,10 +26,14 @@ public class ApothekeViewBuilder implements Builder<Region> {
 
     private final ApothekeModel model;
     private final StackPane root;
+    private final Consumer<ApothekeSkill> incrementHandler;
+    private final Consumer<ApothekeSkill> decrementHandler;
 
-    public ApothekeViewBuilder(ApothekeModel model) {
+    public ApothekeViewBuilder(ApothekeModel model, Consumer<ApothekeSkill> incrementHandler, Consumer<ApothekeSkill> decrementHandler) {
         this.model = model;
         this.root = new StackPane();
+        this.incrementHandler = incrementHandler;
+        this.decrementHandler = decrementHandler;
     }
 
     @Override
@@ -76,22 +82,28 @@ public class ApothekeViewBuilder implements Builder<Region> {
     private Node createSkillUpdater() {
         return new VBox(
                 playerNameChoiceContainer(),
-                skillLineContainer("Cultivation", "Cultivation Description", model.playerCultivationSkillValueProperty()),
-                skillLineContainer("Extraction", "Extraction Description", model.playerExtractionSkillValueProperty()),
-                skillLineContainer("Synthesis", "Synthesis Description", model.playerSynthesisSkillValueProperty()),
-                skillLineContainer("Diagnosis", "Diagnosis Description", model.playerDiagnosisSkillValueProperty()),
+                skillLineContainer(ApothekeSkill.CULTIVATION, "Cultivation Description", model.playerCultivationSkillValueProperty()),
+                skillLineContainer(ApothekeSkill.EXTRACTION, "Extraction Description", model.playerExtractionSkillValueProperty()),
+                skillLineContainer(ApothekeSkill.SYNTHESIS, "Synthesis Description", model.playerSynthesisSkillValueProperty()),
+                skillLineContainer(ApothekeSkill.DIAGNOSIS, "Diagnosis Description", model.playerDiagnosisSkillValueProperty()),
                 allocatableSkillPointsContainer()
         );
     }
 
-    private Node skillLineContainer(String skill, String skillDescription, SimpleIntegerProperty skillValue){
+    private Node skillLineContainer(ApothekeSkill skill, String skillDescription, SimpleIntegerProperty skillValue){
         HBox skillLineContainer = new HBox();
-        Label skillLabel = new Label(skill);
+        Label skillLabel = new Label(skill.toString());
         Tooltip skillToolTip = new Tooltip(skillDescription);
         skillToolTip.setShowDelay(Duration.ZERO);
         Tooltip.install(skillLabel, skillToolTip);
         Button skillDecreaseButton = new Button(" - ");
+        skillDecreaseButton.setOnAction( e -> {
+            decrementHandler.accept(skill);
+        });
         Button skillIncreaseButton = new Button(" + " );
+        skillIncreaseButton.setOnAction( e -> {
+            incrementHandler.accept(skill);
+        });
         Label skillValueLabel = new Label();
         skillValueLabel.textProperty().bindBidirectional(skillValue, new NumberStringConverter());
         skillLineContainer.getChildren().addAll(
