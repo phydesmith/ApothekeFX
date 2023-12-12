@@ -15,4 +15,14 @@ public class ExtractionHandler implements SkillResolutionHandler {
     public void setSkillVal(ApothekeModel model, int value) {
         model.setPlayerExtractionSkillValue(value);
     }
+
+    @Override
+    public int getSavedSkillVal(ApothekeModel model) {
+        return model.getLastSavedPlayerExtractionSkillValue();
+    }
+
+    @Override
+    public void setSavedSkillVal(ApothekeModel model, int value) {
+        model.setPlayerExtractionSkillValue(value);
+    }
 }

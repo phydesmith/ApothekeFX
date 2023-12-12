@@ -13,4 +13,14 @@ public class DiagnosisHandler implements SkillResolutionHandler {
     public void setSkillVal(ApothekeModel model, int value) {
         model.setPlayerDiagnosisSkillValue(value);
     }
+
+    @Override
+    public int getSavedSkillVal(ApothekeModel model) {
+        return model.getLastSavedPlayerDiagnosisSkillValue();
+    }
+
+    @Override
+    public void setSavedSkillVal(ApothekeModel model, int value) {
+
+    }
 }

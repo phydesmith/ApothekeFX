@@ -10,6 +10,8 @@ import java.util.function.Supplier;
 public interface SkillResolutionHandler {
     public int getSkillVal(ApothekeModel model);
     public void setSkillVal(ApothekeModel model, int value);
+    public int getSavedSkillVal(ApothekeModel model);
+    public void setSavedSkillVal(ApothekeModel model, int value);
 }
 
 //

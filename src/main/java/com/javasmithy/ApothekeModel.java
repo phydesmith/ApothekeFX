@@ -8,6 +8,10 @@ public class ApothekeModel {
     private SimpleIntegerProperty playerExtractionSkillValue;
     private SimpleIntegerProperty playerSynthesisSkillValue;
     private SimpleIntegerProperty playerDiagnosisSkillValue;
+    private SimpleIntegerProperty lastSavedPlayerCultivationSkillValue;
+    private SimpleIntegerProperty lastSavedPlayerExtractionSkillValue;
+    private SimpleIntegerProperty lastSavedPlayerSynthesisSkillValue;
+    private SimpleIntegerProperty lastSavedPlayerDiagnosisSkillValue;
     private SimpleIntegerProperty skillPointsToAllocate;
     private SimpleStringProperty playerName;
 
@@ -16,8 +20,60 @@ public class ApothekeModel {
         this.playerExtractionSkillValue = new SimpleIntegerProperty(3);
         this.playerSynthesisSkillValue = new SimpleIntegerProperty(3);
         this.playerDiagnosisSkillValue = new SimpleIntegerProperty(3);
-        this.skillPointsToAllocate = new SimpleIntegerProperty(0);
+        this.lastSavedPlayerCultivationSkillValue = new SimpleIntegerProperty(3);
+        this.lastSavedPlayerExtractionSkillValue = new SimpleIntegerProperty(3);
+        this.lastSavedPlayerSynthesisSkillValue = new SimpleIntegerProperty(3);
+        this.lastSavedPlayerDiagnosisSkillValue = new SimpleIntegerProperty(3);
+        this.skillPointsToAllocate = new SimpleIntegerProperty(5);
         this.playerName = new SimpleStringProperty("");
+    }
+
+    public int getLastSavedPlayerCultivationSkillValue() {
+        return lastSavedPlayerCultivationSkillValue.get();
+    }
+
+    public SimpleIntegerProperty lastSavedPlayerCultivationSkillValueProperty() {
+        return lastSavedPlayerCultivationSkillValue;
+    }
+
+    public void setLastSavedPlayerCultivationSkillValue(int lastSavedPlayerCultivationSkillValue) {
+        this.lastSavedPlayerCultivationSkillValue.set(lastSavedPlayerCultivationSkillValue);
+    }
+
+    public int getLastSavedPlayerExtractionSkillValue() {
+        return lastSavedPlayerExtractionSkillValue.get();
+    }
+
+    public SimpleIntegerProperty lastSavedPlayerExtractionSkillValueProperty() {
+        return lastSavedPlayerExtractionSkillValue;
+    }
+
+    public void setLastSavedPlayerExtractionSkillValue(int lastSavedPlayerExtractionSkillValue) {
+        this.lastSavedPlayerExtractionSkillValue.set(lastSavedPlayerExtractionSkillValue);
+    }
+
+    public int getLastSavedPlayerSynthesisSkillValue() {
+        return lastSavedPlayerSynthesisSkillValue.get();
+    }
+
+    public SimpleIntegerProperty lastSavedPlayerSynthesisSkillValueProperty() {
+        return lastSavedPlayerSynthesisSkillValue;
+    }
+
+    public void setLastSavedPlayerSynthesisSkillValue(int lastSavedPlayerSynthesisSkillValue) {
+        this.lastSavedPlayerSynthesisSkillValue.set(lastSavedPlayerSynthesisSkillValue);
+    }
+
+    public int getLastSavedPlayerDiagnosisSkillValue() {
+        return lastSavedPlayerDiagnosisSkillValue.get();
+    }
+
+    public SimpleIntegerProperty lastSavedPlayerDiagnosisSkillValueProperty() {
+        return lastSavedPlayerDiagnosisSkillValue;
+    }
+
+    public void setLastSavedPlayerDiagnosisSkillValue(int lastSavedPlayerDiagnosisSkillValue) {
+        this.lastSavedPlayerDiagnosisSkillValue.set(lastSavedPlayerDiagnosisSkillValue);
     }
 
     public int getSkillPointsToAllocate() {

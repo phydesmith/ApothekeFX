@@ -33,6 +33,11 @@ TextField {
     -fx-pref-column-count: 5;
 }
 
+.tooltip {
+    -fx-font-family: 'Times New Roman';
+    -fx-font-size: 14;
+}
+
 .start-menu-root {
     /*-fx-border-color: GREEN;*/
     -fx-background-image: url('/assets/images/blank-marquee-transparent-viewport.png');

@@ -4,8 +4,6 @@ import com.javasmithy.skills.*;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 public class ApothekeInteractor {
     private final ApothekeModel model;
@@ -24,13 +22,28 @@ public class ApothekeInteractor {
     }
 
 
-    public void increment(ApothekeSkill skill) {
-        int skillValue = skillHandlerMap.get(skill).getSkillVal(this.model);
-        skillHandlerMap.get(skill).setSkillVal(this.model, ++skillValue);
+    public void incrementSkillValue(ApothekeSkill skill) {
+        SkillResolutionHandler skillHandler = this.skillHandlerMap.get(skill);
+        if (this.model.getSkillPointsToAllocate() > 0){
+            int skillValue = skillHandler.getSkillVal(this.model);
+            skillHandler.setSkillVal(this.model, ++skillValue);
+            changeAllocatableSkillPoints(-1);
+        }
     }
 
-    public void decrement(ApothekeSkill skill) {
-        int skillValue = skillHandlerMap.get(skill).getSkillVal(this.model);
-        skillHandlerMap.get(skill).setSkillVal(this.model, --skillValue);
+    public void decrementSkillValue(ApothekeSkill skill) {
+        SkillResolutionHandler skillHandler = this.skillHandlerMap.get(skill);
+        if (skillHandler.getSkillVal(this.model) > skillHandler.getSavedSkillVal(this.model)) {
+            int skillValue = skillHandler.getSkillVal(this.model);
+            skillHandler.setSkillVal(this.model, --skillValue);
+            changeAllocatableSkillPoints(1);
+        }
+
+    }
+
+    private void changeAllocatableSkillPoints(int value){
+        int skillPointsToAllocate = this.model.getSkillPointsToAllocate();
+        skillPointsToAllocate += value;
+        this.model.setSkillPointsToAllocate(skillPointsToAllocate);
     }
 }

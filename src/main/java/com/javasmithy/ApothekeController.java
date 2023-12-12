@@ -25,10 +25,11 @@ public class ApothekeController {
     }
 
     private void incrementSkill(ApothekeSkill skill){
-        interactor.increment(skill);
+        interactor.incrementSkillValue(skill);
     }
 
     private void decrementSkill(ApothekeSkill skill){
-        interactor.decrement(skill);
+        interactor.decrementSkillValue(skill);
     }
+
 }

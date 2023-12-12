@@ -11,21 +11,22 @@ class ApothekeInteractorTest {
     void increment() {
         ApothekeModel apothekeModel= new ApothekeModel();
         ApothekeInteractor interactor = new ApothekeInteractor(apothekeModel);
+        apothekeModel.setSkillPointsToAllocate(1);
 
         int expectedValue = (apothekeModel.getPlayerCultivationSkillValue() + 1);
-        interactor.increment(ApothekeSkill.CULTIVATION);
+        interactor.incrementSkillValue(ApothekeSkill.CULTIVATION);
         assertEquals(expectedValue, apothekeModel.getPlayerCultivationSkillValue(), "Incrementing gives value + 1");
 
         expectedValue = (apothekeModel.getPlayerExtractionSkillValue() + 1);
-        interactor.increment(ApothekeSkill.EXTRACTION);
+        interactor.incrementSkillValue(ApothekeSkill.EXTRACTION);
         assertEquals(expectedValue, apothekeModel.getPlayerExtractionSkillValue(), "Incrementing gives value + 1");
 
         expectedValue = (apothekeModel.getPlayerSynthesisSkillValue() + 1);
-        interactor.increment(ApothekeSkill.SYNTHESIS);
+        interactor.incrementSkillValue(ApothekeSkill.SYNTHESIS);
         assertEquals(expectedValue, apothekeModel.getPlayerSynthesisSkillValue(), "Incrementing gives value + 1");
 
         expectedValue = (apothekeModel.getPlayerDiagnosisSkillValue() + 1);
-        interactor.increment(ApothekeSkill.DIAGNOSIS);
+        interactor.incrementSkillValue(ApothekeSkill.DIAGNOSIS);
         assertEquals(expectedValue, apothekeModel.getPlayerDiagnosisSkillValue(), "Incrementing gives value + 1");
     }
 
@@ -33,21 +34,25 @@ class ApothekeInteractorTest {
     void decrement() {
         ApothekeModel apothekeModel= new ApothekeModel();
         ApothekeInteractor interactor = new ApothekeInteractor(apothekeModel);
+        apothekeModel.setLastSavedPlayerSynthesisSkillValue(1);
+        apothekeModel.setLastSavedPlayerDiagnosisSkillValue(1);
+        apothekeModel.setLastSavedPlayerCultivationSkillValue(1);
+        apothekeModel.setLastSavedPlayerExtractionSkillValue(1);
 
         int expectedValue = (apothekeModel.getPlayerCultivationSkillValue() - 1);
-        interactor.decrement(ApothekeSkill.CULTIVATION);
+        interactor.decrementSkillValue(ApothekeSkill.CULTIVATION);
         assertEquals(expectedValue, apothekeModel.getPlayerCultivationSkillValue(), "Incrementing gives value - 1");
 
         expectedValue = (apothekeModel.getPlayerExtractionSkillValue() - 1);
-        interactor.decrement(ApothekeSkill.EXTRACTION);
+        interactor.decrementSkillValue(ApothekeSkill.EXTRACTION);
         assertEquals(expectedValue, apothekeModel.getPlayerExtractionSkillValue(), "Incrementing gives value - 1");
 
         expectedValue = (apothekeModel.getPlayerSynthesisSkillValue() - 1);
-        interactor.decrement(ApothekeSkill.SYNTHESIS);
+        interactor.decrementSkillValue(ApothekeSkill.SYNTHESIS);
         assertEquals(expectedValue, apothekeModel.getPlayerSynthesisSkillValue(), "Incrementing gives value - 1");
 
         expectedValue = (apothekeModel.getPlayerDiagnosisSkillValue() - 1);
-        interactor.decrement(ApothekeSkill.DIAGNOSIS);
+        interactor.decrementSkillValue(ApothekeSkill.DIAGNOSIS);
         assertEquals(expectedValue, apothekeModel.getPlayerDiagnosisSkillValue(), "Incrementing gives value - 1");
     }
 }
