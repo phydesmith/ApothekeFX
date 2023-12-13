@@ -7,14 +7,18 @@ import javafx.util.Builder;
 
 public class ApothekeController {
     private final Builder<Region> viewBuilder;
-    private ApothekeInteractor interactor;
+    private final ApothekeInteractor interactor;
 
     public ApothekeController() {
         //  Model
         ApothekeModel model = new ApothekeModel();
 
         //  View
-        this.viewBuilder = new ApothekeViewBuilder(model, this::incrementSkill, this::decrementSkill);
+        this.viewBuilder = new ApothekeViewBuilder(
+                model,
+                this::incrementSkill,
+                this::decrementSkill,
+                this::updatePlayerPortraitPath);
 
         //  Interactor
         this.interactor = new ApothekeInteractor(model);
@@ -31,5 +35,9 @@ public class ApothekeController {
     private void decrementSkill(ApothekeSkill skill){
         interactor.decrementSkillValue(skill);
     }
+
+    private void updatePlayerPortraitPath(String path) {interactor.updatePlayerPortraitPath(path);}
+
+
 
 }

@@ -17,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.util.Duration;
 import javafx.util.converter.NumberStringConverter;
 
+import java.util.LinkedList;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -28,12 +29,14 @@ public class ApothekeViewBuilder implements Builder<Region> {
     private final StackPane root;
     private final Consumer<ApothekeSkill> incrementHandler;
     private final Consumer<ApothekeSkill> decrementHandler;
+    private final Consumer<String> playerPortraitPathHandler;
 
-    public ApothekeViewBuilder(ApothekeModel model, Consumer<ApothekeSkill> incrementHandler, Consumer<ApothekeSkill> decrementHandler) {
+    public ApothekeViewBuilder(ApothekeModel model, Consumer<ApothekeSkill> incrementHandler, Consumer<ApothekeSkill> decrementHandler, Consumer<String> playerPortraitPathHandler) {
         this.model = model;
         this.root = new StackPane();
         this.incrementHandler = incrementHandler;
         this.decrementHandler = decrementHandler;
+        this.playerPortraitPathHandler = playerPortraitPathHandler;
     }
 
     @Override
@@ -50,6 +53,7 @@ public class ApothekeViewBuilder implements Builder<Region> {
             resizeWindow();
         };
     }
+
     private void resizeWindow(){
         Platform.runLater( () -> {
             this.root.getScene().getWindow().sizeToScene();
@@ -82,18 +86,18 @@ public class ApothekeViewBuilder implements Builder<Region> {
     private Node createSkillUpdater() {
         return new VBox(
                 playerNameChoiceContainer(),
-                skillLineContainer(ApothekeSkill.CULTIVATION, "Cultivation Description", model.playerCultivationSkillValueProperty()),
-                skillLineContainer(ApothekeSkill.EXTRACTION, "Extraction Description", model.playerExtractionSkillValueProperty()),
-                skillLineContainer(ApothekeSkill.SYNTHESIS, "Synthesis Description", model.playerSynthesisSkillValueProperty()),
-                skillLineContainer(ApothekeSkill.DIAGNOSIS, "Diagnosis Description", model.playerDiagnosisSkillValueProperty()),
+                skillLineContainer(ApothekeSkill.CULTIVATION, model.playerCultivationSkillValueProperty()),
+                skillLineContainer(ApothekeSkill.DIAGNOSIS,  model.playerDiagnosisSkillValueProperty()),
+                skillLineContainer(ApothekeSkill.EXTRACTION,  model.playerExtractionSkillValueProperty()),
+                skillLineContainer(ApothekeSkill.SYNTHESIS,  model.playerSynthesisSkillValueProperty()),
                 allocatableSkillPointsContainer()
         );
     }
 
-    private Node skillLineContainer(ApothekeSkill skill, String skillDescription, SimpleIntegerProperty skillValue){
+    private Node skillLineContainer(ApothekeSkill skill, SimpleIntegerProperty skillValue){
         HBox skillLineContainer = new HBox();
         Label skillLabel = new Label(skill.toString());
-        Tooltip skillToolTip = new Tooltip(skillDescription);
+        Tooltip skillToolTip = new Tooltip(skill.getDescription());
         skillToolTip.setShowDelay(Duration.ZERO);
         Tooltip.install(skillLabel, skillToolTip);
         Button skillDecreaseButton = new Button(" - ");
@@ -133,19 +137,38 @@ public class ApothekeViewBuilder implements Builder<Region> {
     }
 
     private Node createPortraitSelector(){
+        LinkedList<String> portraitList = new LinkedList<>();
+        portraitList.add("assets/images/portraits/portrait1.png");
+        portraitList.add("assets/images/portraits/portrait2.png");
+        portraitList.add("assets/images/portraits/portrait3.png");
+
+        this.playerPortraitPathHandler.accept(portraitList.getFirst());
+        Image image = new Image(this.model.getPlayerPortraitPath());
+        System.out.println(image.getUrl());
+        ImageView imageView = new ImageView(image);
+        imageView.setFitHeight(330);
+        imageView.setFitWidth(300);
+        imageView.setPreserveRatio(true);
+
         HBox portraitButtonContainer = new HBox();
         Button leftPortraitButton = new Button(" < ");
+        leftPortraitButton.setOnAction( e -> {
+            portraitList.addLast(portraitList.remove());
+            this.playerPortraitPathHandler.accept(portraitList.getFirst());
+            imageView.setImage(new Image(this.model.getPlayerPortraitPath()));
+        });
         Button rightPortraitButton = new Button(" > " );
+        rightPortraitButton.setOnAction( e -> {
+            portraitList.addFirst(portraitList.removeLast());
+            this.playerPortraitPathHandler.accept(portraitList.getFirst());
+            imageView.setImage(new Image(this.model.getPlayerPortraitPath()));
+        });
         portraitButtonContainer.getChildren().addAll(
                 leftPortraitButton,
                 rightPortraitButton
         );
 
-        Image image = new Image("assets/images/portraits/portrait1.png");
-        ImageView imageView = new ImageView(image);
-        imageView.setFitHeight(330);
-        imageView.setFitWidth(300);
-        imageView.setPreserveRatio(true);
+
 
         VBox portraitSelectionContainer = new VBox();
         portraitSelectionContainer.getChildren().addAll(
@@ -157,9 +180,8 @@ public class ApothekeViewBuilder implements Builder<Region> {
     }
 
     private Node createGameView(){
-        VBox menuRoot = new VBox();
-        menuRoot.getStyleClass().add("start-menu-root");
-        menuRoot.getChildren().addAll(
+        VBox actionMenu = new VBox();
+        actionMenu.getChildren().addAll(
                 createButtonWithAction("Garden", switchWindowEventHandler(this::createCultivationView)),
                 createButtonWithAction("Workbench", switchWindowEventHandler(this::createWorkBenchView)),
                 createButtonWithAction("Laboratory", switchWindowEventHandler(this::createLaboratoryView)),
@@ -167,7 +189,43 @@ public class ApothekeViewBuilder implements Builder<Region> {
                 createButtonWithAction("Clients", switchWindowEventHandler(this::createClientsView)),
                 createButtonWithAction("Main Menu", switchWindowEventHandler(this::createStartMenu))
         );
-        return menuRoot;
+        BorderPane gameViewRoot = new BorderPane();
+        gameViewRoot.getStyleClass().add("start-menu-root");
+        gameViewRoot.setLeft(createCharacterView());
+        gameViewRoot.setRight(actionMenu);
+        return gameViewRoot;
+    }
+
+    private Node createCharacterView() {
+        Image image = new Image(this.model.getPlayerPortraitPath());
+        ImageView imageView = new ImageView(image);
+        imageView.setFitHeight(165);
+        imageView.setFitWidth(150);
+        imageView.setPreserveRatio(true);
+        Label playerNameLabel = new Label();
+        playerNameLabel.textProperty().bind(this.model.playerNameProperty());
+        return new VBox(
+                imageView,
+                playerNameLabel,
+                skillLinesReadOnly(ApothekeSkill.CULTIVATION, this.model.playerCultivationSkillValueProperty()),
+                skillLinesReadOnly(ApothekeSkill.DIAGNOSIS, this.model.playerDiagnosisSkillValueProperty()),
+                skillLinesReadOnly(ApothekeSkill.EXTRACTION, this.model.playerExtractionSkillValueProperty()),
+                skillLinesReadOnly(ApothekeSkill.SYNTHESIS, this.model.playerSynthesisSkillValueProperty())
+        );
+    }
+    private Node skillLinesReadOnly(ApothekeSkill skill, SimpleIntegerProperty skillValue){
+        HBox skillLineContainer = new HBox();
+        Label skillLabel = new Label(skill.toString());
+        Tooltip skillToolTip = new Tooltip(skill.getDescription());
+        skillToolTip.setShowDelay(Duration.ZERO);
+        Tooltip.install(skillLabel, skillToolTip);
+        Label skillValueLabel = new Label();
+        skillValueLabel.textProperty().bindBidirectional(skillValue, new NumberStringConverter());
+        skillLineContainer.getChildren().addAll(
+                skillLabel,
+                skillValueLabel
+        );
+        return skillLineContainer;
     }
 
     private Node createCultivationView() {

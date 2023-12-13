@@ -3,6 +3,13 @@ package com.javasmithy;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.Arrays;
+import java.util.LinkedList;
+
 public class ApothekeModel {
     private SimpleIntegerProperty playerCultivationSkillValue;
     private SimpleIntegerProperty playerExtractionSkillValue;
@@ -14,6 +21,7 @@ public class ApothekeModel {
     private SimpleIntegerProperty lastSavedPlayerDiagnosisSkillValue;
     private SimpleIntegerProperty skillPointsToAllocate;
     private SimpleStringProperty playerName;
+    private SimpleStringProperty playerPortraitPath;
 
     public ApothekeModel() {
         this.playerCultivationSkillValue = new SimpleIntegerProperty(3);
@@ -26,6 +34,7 @@ public class ApothekeModel {
         this.lastSavedPlayerDiagnosisSkillValue = new SimpleIntegerProperty(3);
         this.skillPointsToAllocate = new SimpleIntegerProperty(5);
         this.playerName = new SimpleStringProperty("");
+        this.playerPortraitPath = new SimpleStringProperty("");
     }
 
     public int getLastSavedPlayerCultivationSkillValue() {
@@ -146,5 +155,17 @@ public class ApothekeModel {
 
     public void setPlayerName(String playerName) {
         this.playerName.set(playerName);
+    }
+
+    public String getPlayerPortraitPath() {
+        return playerPortraitPath.get();
+    }
+
+    public SimpleStringProperty playerPortraitPathProperty() {
+        return playerPortraitPath;
+    }
+
+    public void setPlayerPortraitPath(String playerPortraitPath) {
+        this.playerPortraitPath.set(playerPortraitPath);
     }
 }

@@ -46,4 +46,8 @@ public class ApothekeInteractor {
         skillPointsToAllocate += value;
         this.model.setSkillPointsToAllocate(skillPointsToAllocate);
     }
+
+    public void updatePlayerPortraitPath(String path){
+        this.model.setPlayerPortraitPath(path);
+    }
 }
