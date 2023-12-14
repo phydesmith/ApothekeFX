@@ -1,10 +1,12 @@
 package com.javasmithy;
 
+import com.javasmithy.entity.Entity;
 import com.javasmithy.skills.ApothekeSkill;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -18,6 +20,7 @@ import javafx.util.Duration;
 import javafx.util.converter.NumberStringConverter;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -54,6 +57,11 @@ public class ApothekeViewBuilder implements Builder<Region> {
         };
     }
 
+    private EventHandler<ActionEvent> characterCreationSubmitHandler(Supplier<Node> destination){
+        this.model.setDisableContinueButton(false);
+        return switchWindowEventHandler(destination);
+    }
+
     private void resizeWindow(){
         Platform.runLater( () -> {
             this.root.getScene().getWindow().sizeToScene();
@@ -65,12 +73,15 @@ public class ApothekeViewBuilder implements Builder<Region> {
         menuRoot.getStyleClass().add("start-menu-root");
         Label startMenuHeader = new Label("Apotheke");
         startMenuHeader.getStyleClass().add("header");
-        Button optionsButton = new Button("Options");
+        Button saveButton = new Button("Save");
+        Button loadButton = new Button("Load");
         Button exitButton = createExitButton("Exit Game");
         menuRoot.getChildren().addAll(
                 startMenuHeader,
                 createButtonWithAction("Start Game", switchWindowEventHandler(this::createPlayerCreationView)),
-                optionsButton,
+                createButtonWithActionAndBinding("Continue", switchWindowEventHandler(this::createGameView), this.model.disableContinueButtonProperty()),
+                saveButton,
+                loadButton,
                 exitButton);
         return menuRoot;
     }
@@ -79,7 +90,7 @@ public class ApothekeViewBuilder implements Builder<Region> {
         return new VBox(
                new HBox( createPortraitSelector(),
                             createSkillUpdater()),
-                createButtonWithAction("Submit", switchWindowEventHandler(this::createGameView))
+                createButtonWithAction("Submit", characterCreationSubmitHandler(this::createGameView))
         );
     }
 
@@ -101,10 +112,12 @@ public class ApothekeViewBuilder implements Builder<Region> {
         skillToolTip.setShowDelay(Duration.ZERO);
         Tooltip.install(skillLabel, skillToolTip);
         Button skillDecreaseButton = new Button(" - ");
+        skillDecreaseButton.getStyleClass().add("small-button");
         skillDecreaseButton.setOnAction( e -> {
             decrementHandler.accept(skill);
         });
         Button skillIncreaseButton = new Button(" + " );
+        skillIncreaseButton.getStyleClass().add("small-button");
         skillIncreaseButton.setOnAction( e -> {
             incrementHandler.accept(skill);
         });
@@ -137,14 +150,10 @@ public class ApothekeViewBuilder implements Builder<Region> {
     }
 
     private Node createPortraitSelector(){
-        LinkedList<String> portraitList = new LinkedList<>();
-        portraitList.add("assets/images/portraits/portrait1.png");
-        portraitList.add("assets/images/portraits/portrait2.png");
-        portraitList.add("assets/images/portraits/portrait3.png");
+        LinkedList<String> portraitList = this.model.getPortraitPathList();
 
         this.playerPortraitPathHandler.accept(portraitList.getFirst());
         Image image = new Image(this.model.getPlayerPortraitPath());
-        System.out.println(image.getUrl());
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(330);
         imageView.setFitWidth(300);
@@ -152,12 +161,14 @@ public class ApothekeViewBuilder implements Builder<Region> {
 
         HBox portraitButtonContainer = new HBox();
         Button leftPortraitButton = new Button(" < ");
+        leftPortraitButton.getStyleClass().add("small-button");
         leftPortraitButton.setOnAction( e -> {
             portraitList.addLast(portraitList.remove());
             this.playerPortraitPathHandler.accept(portraitList.getFirst());
             imageView.setImage(new Image(this.model.getPlayerPortraitPath()));
         });
         Button rightPortraitButton = new Button(" > " );
+        rightPortraitButton.getStyleClass().add("small-button");
         rightPortraitButton.setOnAction( e -> {
             portraitList.addFirst(portraitList.removeLast());
             this.playerPortraitPathHandler.accept(portraitList.getFirst());
@@ -230,8 +241,55 @@ public class ApothekeViewBuilder implements Builder<Region> {
 
     private Node createCultivationView() {
         return new VBox(
+                new HBox(
+                        createSingleCraftingNode(),
+                        createInventoryViewPane(12, Orientation.VERTICAL)
+                ),
                 createButtonWithAction("Return", switchWindowEventHandler(this::createGameView))
         );
+    }
+
+    private Node createSingleCraftingNode(){
+        ImageView imageView = new ImageView();
+        imageView.setOnDragDropped( e -> {
+
+        });
+        imageView.setFitWidth(32);
+        imageView.setFitHeight(32);
+        imageView.setPreserveRatio(true);
+        StackPane seedPlot = new StackPane(imageView);
+        seedPlot.setMaxHeight(32);
+        seedPlot.setMaxWidth(32);
+        seedPlot.getStyleClass().add("crafting-view-bordered");
+        return seedPlot;
+    }
+
+    private Node createInventoryViewPane(int size, Orientation orientation) {
+        List<Entity> inventoryBatch = this.model.getPlayerInventoryBatch(0, size);
+        if (inventoryBatch.isEmpty()) return new FlowPane();
+
+        FlowPane flowPane = new FlowPane(orientation);
+        flowPane.setVgap(8);
+        flowPane.setHgap(4);
+        flowPane.setPrefWrapLength(300);
+        for (Entity e : inventoryBatch) {
+            flowPane.getChildren().add(createInventoryItemView(32, 32, e));
+        }
+        return new VBox(
+            new Label("Inventory"),
+            flowPane
+        );
+    }
+    private Node createInventoryItemView(int fitWidth, int fitHeight, Entity entity){
+        ImageView imageView = new ImageView();
+        imageView.setFitWidth(fitWidth);
+        imageView.setFitHeight(fitHeight);
+        imageView.setPreserveRatio(true);
+        imageView.setImage(entity.getSprite());
+        Tooltip tooltip = new Tooltip(entity.getName());
+        tooltip.setShowDelay(Duration.ZERO);
+        Tooltip.install(imageView, tooltip);
+        return imageView;
     }
 
     private Node createClientsView() {

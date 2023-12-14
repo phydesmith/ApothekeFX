@@ -1,14 +1,15 @@
 package com.javasmithy;
 
+import com.javasmithy.entity.Entity;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 public class ApothekeModel {
     private SimpleIntegerProperty playerCultivationSkillValue;
@@ -22,6 +23,9 @@ public class ApothekeModel {
     private SimpleIntegerProperty skillPointsToAllocate;
     private SimpleStringProperty playerName;
     private SimpleStringProperty playerPortraitPath;
+    private ObservableList<Entity> playerInventory;
+    private LinkedList<String> portraitPathList;
+    private SimpleBooleanProperty disableContinueButton;
 
     public ApothekeModel() {
         this.playerCultivationSkillValue = new SimpleIntegerProperty(3);
@@ -35,6 +39,44 @@ public class ApothekeModel {
         this.skillPointsToAllocate = new SimpleIntegerProperty(5);
         this.playerName = new SimpleStringProperty("");
         this.playerPortraitPath = new SimpleStringProperty("");
+        this.disableContinueButton = new SimpleBooleanProperty(true);
+        debugInitializePlayerInventory();
+        debugInitializePortraitPathList();
+    }
+
+    private void debugInitializePortraitPathList() {
+        this.portraitPathList = new LinkedList<>();
+        portraitPathList.addAll(List.of(
+                "assets/images/portraits/portrait1.png",
+                "assets/images/portraits/portrait2.png",
+                "assets/images/portraits/portrait3.png"
+        ));
+    }
+
+    private void debugInitializePlayerInventory() {
+        this.playerInventory = FXCollections.observableArrayList(
+                new Entity("assets/images/cultivation/harvested/p1-harvested.png", "Harvested Choleric"),
+                new Entity("assets/images/cultivation/harvested/p1-harvested.png", "Harvested Choleric"),
+                new Entity("assets/images/cultivation/harvested/p1-harvested.png", "Harvested Choleric"),
+                new Entity("assets/images/cultivation/harvested/p1-harvested.png", "Harvested Choleric"),
+                new Entity("assets/images/cultivation/harvested/p1-harvested.png", "Harvested Choleric"),
+                new Entity("assets/images/cultivation/harvested/p1-harvested.png", "Harvested Choleric"),
+                new Entity("assets/images/cultivation/harvested/p1-harvested.png", "Harvested Choleric"),
+                new Entity("assets/images/cultivation/harvested/p1-harvested.png", "Harvested Choleric"),
+                new Entity("assets/images/cultivation/harvested/p1-harvested.png", "Harvested Choleric"),
+                new Entity("assets/images/cultivation/harvested/p1-harvested.png", "Harvested Choleric"),
+                new Entity("assets/images/cultivation/harvested/p1-harvested.png", "Harvested Choleric"),
+                new Entity("assets/images/cultivation/harvested/p1-harvested.png", "Harvested Choleric"),
+                new Entity("assets/images/cultivation/harvested/p1-harvested.png", "Harvested Choleric"),
+                new Entity("assets/images/cultivation/harvested/p1-harvested.png", "Harvested Choleric"),
+                new Entity("assets/images/cultivation/harvested/p1-harvested.png", "Harvested Choleric"),
+                new Entity("assets/images/cultivation/harvested/p1-harvested.png", "Harvested Choleric"),
+                new Entity("assets/images/cultivation/harvested/p1-harvested.png", "Harvested Choleric"),
+                new Entity("assets/images/cultivation/harvested/p1-harvested.png", "Harvested Choleric"),
+                new Entity("assets/images/cultivation/harvested/p1-harvested.png", "Harvested Choleric"),
+                new Entity("assets/images/cultivation/harvested/p1-harvested.png", "Harvested Choleric"),
+                new Entity("assets/images/cultivation/harvested/p1-harvested.png", "Harvested Choleric")
+        );
     }
 
     public int getLastSavedPlayerCultivationSkillValue() {
@@ -167,5 +209,46 @@ public class ApothekeModel {
 
     public void setPlayerPortraitPath(String playerPortraitPath) {
         this.playerPortraitPath.set(playerPortraitPath);
+    }
+
+    public List<Entity> getPlayerInventory() {
+        return playerInventory;
+    }
+
+    public void setPlayerInventory(ObservableList<Entity> playerInventory) {
+        this.playerInventory = playerInventory;
+    }
+
+    public Entity getInventoryItemAt(int index){
+        return this.playerInventory.get(index);
+    }
+
+    public List<Entity> getPlayerInventoryBatch(int startIndex, int endIndex){
+        try {
+            return this.playerInventory.subList(startIndex, endIndex);
+        } catch (IndexOutOfBoundsException e){
+            System.err.println("Error getting player inventory batch. Given indexes out of bounds for inventory sublist.");
+        }
+        return new ArrayList<>();
+    }
+
+    public LinkedList<String> getPortraitPathList() {
+        return portraitPathList;
+    }
+
+    public void setPortraitPathList(LinkedList<String> portraitPathList) {
+        this.portraitPathList = portraitPathList;
+    }
+
+    public boolean getDisableContinueButton() {
+        return disableContinueButton.get();
+    }
+
+    public SimpleBooleanProperty disableContinueButtonProperty() {
+        return disableContinueButton;
+    }
+
+    public void setDisableContinueButton(boolean disableContinueButton) {
+        this.disableContinueButton.set(disableContinueButton);
     }
 }

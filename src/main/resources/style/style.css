@@ -28,6 +28,12 @@ HBox {
     -fx-padding: 10;
 }
 
+FlowPane {
+    -fx-border-color: Green;
+    -fx-alignment: CENTER;
+    -fx-orientation: VERTICAL;
+}
+
 TextField {
     -fx-alignment: CENTER;
     -fx-pref-column-count: 5;
@@ -48,6 +54,8 @@ TextField {
 .game-view-root {
     -fx-border-color: YELLOW;
     -fx-alignment: CENTER;
+    -fx-pref-width: 500;
+    -fx-pref-height: 500;
 }
 
 .header {
@@ -58,9 +66,14 @@ TextField {
 
 .button {
     -fx-text-fill: WHITE;
-    -fx-alignment: top-right ;
-    -fx-text-alignment: right;
+    -fx-alignment: CENTER ;
+    -fx-text-alignment: CENTER;
     -fx-background-color: BLACK;
+    -fx-pref-width: 150;
+}
+
+.small-button {
+    -fx-pref-width: 50;
 }
 
 .button:hover {
@@ -72,3 +85,10 @@ TextField {
     -fx-background-color: #d5c597;
     -fx-text-fill: BLACK;
 }
+
+.crafting-view-bordered {
+    -fx-border-color: BLACK;
+    -fx-border-width: 2;
+    -fx-background-color: LIGHTGREEN;
+}
+
