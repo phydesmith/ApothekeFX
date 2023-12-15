@@ -1,0 +1,30 @@
+{
+  "adjectives": [
+    {"adjective": "bleary", "humour": "phlegmatic"},
+    {"adjective": "aching", "humour": "phlegmatic"},
+    {"adjective": "stiff", "humour": "phlegmatic"},
+    {"adjective": "acidic", "humour": "sanguine"},
+    {"adjective": "burning", "humour": "sanguine"},
+    {"adjective": "weeping", "humour": "sanguine"},
+    {"adjective": "squamous", "humour": "melancholic"},
+    {"adjective": "deep", "humour": "melancholic"},
+    {"adjective": "persistent", "humour": "melancholic"},
+    {"adjective": "stinging", "humour": "choleric"},
+    {"adjective": "caustic", "humour": "choleric"},
+    {"adjective": "chafed", "humour": "choleric"}
+  ],
+  "ailments": [
+    {"ailment":"sore", "humour": "phlegmatic" },
+    {"ailment":"pustule", "humour": "phlegmatic" },
+    {"ailment":"boil", "humour": "phlegmatic" },
+    {"ailment":"gash", "humour": "sanguine" },
+    {"ailment":"edema", "humour": "sanguine" },
+    {"ailment":"goiter", "humour": "sanguine" },
+    {"ailment":"tumor", "humour": "melancholic" },
+    {"ailment":"sprain", "humour": "melancholic" },
+    {"ailment":"infection", "humour": "melancholic" },
+    {"ailment":"ague", "humour": "choleric" },
+    {"ailment":"fever", "humour": "choleric" },
+    {"ailment":"convulsion", "humour": "choleric" }
+  ]
+}

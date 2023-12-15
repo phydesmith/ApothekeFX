@@ -11,7 +11,7 @@
 }
 
 BorderPane {
-    -fx-padding: 10;
+    -fx-border-color: PURPLE;
 }
 
 VBox {
@@ -31,7 +31,6 @@ HBox {
 FlowPane {
     -fx-border-color: Green;
     -fx-alignment: CENTER;
-    -fx-orientation: VERTICAL;
 }
 
 TextField {
@@ -44,7 +43,7 @@ TextField {
     -fx-font-size: 14;
 }
 
-.start-menu-root {
+.game-background-skin {
     /*-fx-border-color: GREEN;*/
     -fx-background-image: url('/assets/images/blank-marquee-transparent-viewport.png');
     -fx-background-size: stretch;
@@ -52,10 +51,8 @@ TextField {
 }
 
 .game-view-root {
-    -fx-border-color: YELLOW;
-    -fx-alignment: CENTER;
-    -fx-pref-width: 500;
-    -fx-pref-height: 500;
+    -fx-pref-width: 600;
+    -fx-pref-height: 600;
 }
 
 .header {
@@ -86,9 +83,14 @@ TextField {
     -fx-text-fill: BLACK;
 }
 
-.crafting-view-bordered {
+.crafting-node-bordered {
     -fx-border-color: BLACK;
     -fx-border-width: 2;
     -fx-background-color: LIGHTGREEN;
+}
+
+.small-text-label {
+    -fx-font-family: "Times New Roman";
+    -fx-font-size: 14;
 }
 

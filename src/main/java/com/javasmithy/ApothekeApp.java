@@ -13,6 +13,7 @@ public class ApothekeApp extends Application {
         stage.setScene(new Scene(new ApothekeController().getView()));
         stage.setTitle("Apotheke");
         stage.getIcons().add(new Image(APP_ICON_PATH));
+        stage.setResizable(false);
         stage.show();
     }
 

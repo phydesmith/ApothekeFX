@@ -1,3 +1,7 @@
+/*
+GOD BLESS THIS MESS
+ */
+
 package com.javasmithy;
 
 import com.javasmithy.entity.Entity;
@@ -6,7 +10,9 @@ import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -14,6 +20,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.shape.Line;
 import javafx.util.Builder;
 import javafx.scene.control.Button;
 import javafx.util.Duration;
@@ -70,7 +77,7 @@ public class ApothekeViewBuilder implements Builder<Region> {
 
     private Node createStartMenu(){
         VBox menuRoot = new VBox();
-        menuRoot.getStyleClass().add("start-menu-root");
+        menuRoot.getStyleClass().add("game-background-skin");
         Label startMenuHeader = new Label("Apotheke");
         startMenuHeader.getStyleClass().add("header");
         Button saveButton = new Button("Save");
@@ -87,11 +94,14 @@ public class ApothekeViewBuilder implements Builder<Region> {
     }
 
     private Node createPlayerCreationView(){
-        return new VBox(
+        VBox vbox = new VBox();
+        vbox.getStyleClass().add("game-background-skin");
+        vbox.getChildren().addAll(
                new HBox( createPortraitSelector(),
                             createSkillUpdater()),
                 createButtonWithAction("Submit", characterCreationSubmitHandler(this::createGameView))
         );
+        return vbox;
     }
 
     private Node createSkillUpdater() {
@@ -201,7 +211,7 @@ public class ApothekeViewBuilder implements Builder<Region> {
                 createButtonWithAction("Main Menu", switchWindowEventHandler(this::createStartMenu))
         );
         BorderPane gameViewRoot = new BorderPane();
-        gameViewRoot.getStyleClass().add("start-menu-root");
+        gameViewRoot.getStyleClass().add("game-background-skin");
         gameViewRoot.setLeft(createCharacterView());
         gameViewRoot.setRight(actionMenu);
         return gameViewRoot;
@@ -240,13 +250,34 @@ public class ApothekeViewBuilder implements Builder<Region> {
     }
 
     private Node createCultivationView() {
-        return new VBox(
-                new HBox(
-                        createSingleCraftingNode(),
-                        createInventoryViewPane(12, Orientation.VERTICAL)
-                ),
-                createButtonWithAction("Return", switchWindowEventHandler(this::createGameView))
+        BorderPane cultivationRoot = new BorderPane();
+        cultivationRoot.getStyleClass().add("game-view-root");
+        cultivationRoot.getStyleClass().add("game-background-skin");
+        cultivationRoot.setRight(createInventoryViewPane(12, Orientation.VERTICAL));
+        cultivationRoot.setLeft(createGardenPlotView());
+        Button button = createButtonWithAction("Return", switchWindowEventHandler(this::createGameView));
+        BorderPane.setAlignment(button, Pos.CENTER);
+        BorderPane.setMargin(button, new Insets(20));
+        cultivationRoot.setBottom(button);
+        return cultivationRoot;
+    }
+
+    private Node createGardenPlotView(){
+        VBox vBox = new VBox();
+        Label gardenPlotHeader = new Label("Garden Plot");
+        Label gardenPlotStatus = new Label("");
+        gardenPlotStatus.textProperty().bind(this.model.currentCultivarTimeLeftProperty());
+        gardenPlotStatus.getStyleClass().add("small-text-label");
+        Button harvestButton = new Button("Harvest");
+        harvestButton.setDisable(true);
+        vBox.getChildren().addAll(
+                gardenPlotHeader,
+                createSingleCraftingNode(),
+                gardenPlotStatus,
+                harvestButton
         );
+        BorderPane.setAlignment(vBox, Pos.CENTER);
+        return vBox;
     }
 
     private Node createSingleCraftingNode(){
@@ -257,14 +288,19 @@ public class ApothekeViewBuilder implements Builder<Region> {
         imageView.setFitWidth(32);
         imageView.setFitHeight(32);
         imageView.setPreserveRatio(true);
-        StackPane seedPlot = new StackPane(imageView);
-        seedPlot.setMaxHeight(32);
-        seedPlot.setMaxWidth(32);
-        seedPlot.getStyleClass().add("crafting-view-bordered");
-        return seedPlot;
+        StackPane craftNode = new StackPane(imageView);
+        craftNode.setMaxHeight(32);
+        craftNode.setMaxWidth(32);
+        craftNode.getStyleClass().add("crafting-node-bordered");
+        return craftNode;
     }
 
     private Node createInventoryViewPane(int size, Orientation orientation) {
+        Button leftInventoryScrollButton = new Button(" < ");
+        leftInventoryScrollButton.getStyleClass().add("small-button");
+        Button rightInventoryScrollButton = new Button(" > " );
+        rightInventoryScrollButton.getStyleClass().add("small-button");
+
         List<Entity> inventoryBatch = this.model.getPlayerInventoryBatch(0, size);
         if (inventoryBatch.isEmpty()) return new FlowPane();
 
@@ -275,10 +311,18 @@ public class ApothekeViewBuilder implements Builder<Region> {
         for (Entity e : inventoryBatch) {
             flowPane.getChildren().add(createInventoryItemView(32, 32, e));
         }
-        return new VBox(
+
+        VBox vbox = new VBox();
+        BorderPane.setAlignment(vbox, Pos.CENTER);
+        vbox.getChildren().addAll(
             new Label("Inventory"),
-            flowPane
+            flowPane,
+            new HBox(
+                leftInventoryScrollButton,
+                rightInventoryScrollButton
+            )
         );
+        return vbox;
     }
     private Node createInventoryItemView(int fitWidth, int fitHeight, Entity entity){
         ImageView imageView = new ImageView();
@@ -293,26 +337,132 @@ public class ApothekeViewBuilder implements Builder<Region> {
     }
 
     private Node createClientsView() {
+        Image image = new Image(this.model.getClientPortraitPath());
+        ImageView imageView = new ImageView(image);
+        imageView.setFitHeight(165);
+        imageView.setFitWidth(150);
+        imageView.setPreserveRatio(true);
+        Label clientNameLabel = new Label();
+        clientNameLabel.textProperty().bind(this.model.clientNameProperty());
         return new VBox(
-                createButtonWithAction("Return", switchWindowEventHandler(this::createGameView))
+                imageView,
+                clientNameLabel
         );
     }
 
     private Node createMarketView() {
-        return new VBox(
-                createButtonWithAction("Return", switchWindowEventHandler(this::createGameView))
+        BorderPane marketViewRoot = new BorderPane();
+        marketViewRoot.getStyleClass().add("game-view-root");
+        marketViewRoot.getStyleClass().add("game-background-skin");
+        marketViewRoot.setTop(createMarketInventoryPane(12, Orientation.HORIZONTAL, "Buy"));
+        marketViewRoot.setCenter(createMarketInventoryPane(12, Orientation.HORIZONTAL, "Sell"));
+        Button button = createButtonWithAction("Return", switchWindowEventHandler(this::createGameView));
+        BorderPane.setAlignment(button, Pos.BOTTOM_CENTER);
+        BorderPane.setMargin(button, new Insets(50));
+
+        marketViewRoot.setBottom(
+                button
         );
+        return marketViewRoot;
+    }
+
+    private Node createMarketInventoryPane(int size, Orientation orientation, String buttonText){
+        Button leftInventoryScrollButton = new Button(" < ");
+        leftInventoryScrollButton.getStyleClass().add("small-button");
+        Button rightInventoryScrollButton = new Button(" > " );
+        rightInventoryScrollButton.getStyleClass().add("small-button");
+        Button sellButton = new Button(buttonText);
+
+        List<Entity> inventoryBatch = this.model.getPlayerInventoryBatch(0, size);
+        if (inventoryBatch.isEmpty()) return new FlowPane();
+
+        FlowPane flowPane = new FlowPane(orientation);
+        flowPane.setVgap(8);
+        flowPane.setHgap(4);
+        flowPane.setPrefWrapLength(300);
+        for (Entity e : inventoryBatch) {
+            flowPane.getChildren().add(createInventoryItemView(32, 32, e));
+        }
+
+        VBox vbox = new VBox();
+        BorderPane.setAlignment(vbox, Pos.CENTER);
+        vbox.getChildren().addAll(
+                new Label("Inventory"),
+                flowPane,
+                new HBox(
+                        leftInventoryScrollButton,
+                        sellButton,
+                        rightInventoryScrollButton
+                )
+        );
+        return vbox;
     }
 
     private Node createLaboratoryView() {
-        return new VBox(
-                createButtonWithAction("Return", switchWindowEventHandler(this::createGameView))
+        BorderPane laboratoryRoot = new BorderPane();
+        laboratoryRoot.getStyleClass().add("game-view-root");
+        laboratoryRoot.getStyleClass().add("game-background-skin");
+        laboratoryRoot.setTop(createInventoryViewPane(12, Orientation.HORIZONTAL));
+        Button button = createButtonWithAction("Return", switchWindowEventHandler(this::createGameView));
+        BorderPane.setAlignment(button, Pos.BOTTOM_CENTER);
+        BorderPane.setMargin(button, new Insets(50));
+        laboratoryRoot.setCenter(createLabNode());
+        laboratoryRoot.setBottom(
+            button
         );
+        return laboratoryRoot;
+    }
+
+    private Node createLabNode() {
+        VBox vBox = new VBox();
+        Label labNodeHeader = new Label("Laboratory");
+        Button synthesizeButton = new Button("Synthesize");
+        synthesizeButton.setDisable(true);
+        vBox.getChildren().addAll(
+                labNodeHeader,
+                new HBox(
+                        createSingleCraftingNode(),
+                        createSingleCraftingNode(),
+                        createSingleCraftingNode()
+                ),
+                createSingleCraftingNode(),
+                synthesizeButton
+        );
+        BorderPane.setAlignment(vBox, Pos.CENTER);
+        return vBox;
     }
 
     private Node createWorkBenchView() {
-        return new VBox(
-                createButtonWithAction("Return", switchWindowEventHandler(this::createGameView))
-        );
+        BorderPane workBenchRoot = new BorderPane();
+        workBenchRoot.getStyleClass().add("game-view-root");
+        workBenchRoot.getStyleClass().add("game-background-skin");
+        workBenchRoot.setRight(createInventoryViewPane(12, Orientation.VERTICAL));
+        workBenchRoot.setLeft(createWorkBenchNode());
+        Button button = createButtonWithAction("Return", switchWindowEventHandler(this::createGameView));
+        BorderPane.setAlignment(button, Pos.CENTER);
+        BorderPane.setMargin(button, new Insets(20));
+        workBenchRoot.setBottom(button);
+        return workBenchRoot;
+
     }
+
+    private Node createWorkBenchNode() {
+        VBox vBox = new VBox();
+        Label workBenchNodeHeader = new Label("Work Bench");
+        Button extractButton = new Button("Extract");
+        extractButton.setDisable(true);
+        vBox.getChildren().addAll(
+                workBenchNodeHeader,
+                createSingleCraftingNode(),
+                new HBox(
+                        createSingleCraftingNode(),
+                        createSingleCraftingNode()
+                ),
+                extractButton
+        );
+        BorderPane.setAlignment(vBox, Pos.CENTER);
+        return vBox;
+    }
+
+
 }

@@ -1,5 +1,7 @@
 package com.javasmithy;
 
+import com.javasmithy.data.DataAccess;
+import com.javasmithy.data.NameList;
 import com.javasmithy.entity.Entity;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -10,8 +12,11 @@ import javafx.collections.ObservableList;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 public class ApothekeModel {
+    private final Random RANDOM = new Random();
+    private SimpleStringProperty currentCultivarTimeLeft;
     private SimpleIntegerProperty playerCultivationSkillValue;
     private SimpleIntegerProperty playerExtractionSkillValue;
     private SimpleIntegerProperty playerSynthesisSkillValue;
@@ -23,9 +28,14 @@ public class ApothekeModel {
     private SimpleIntegerProperty skillPointsToAllocate;
     private SimpleStringProperty playerName;
     private SimpleStringProperty playerPortraitPath;
+    private SimpleStringProperty clientName;
+    private SimpleStringProperty clientPortraitPath;
     private ObservableList<Entity> playerInventory;
     private LinkedList<String> portraitPathList;
+    private List<String> clientPortraitPathList;
     private SimpleBooleanProperty disableContinueButton;
+
+    private final NameList nameList;
 
     public ApothekeModel() {
         this.playerCultivationSkillValue = new SimpleIntegerProperty(3);
@@ -37,11 +47,31 @@ public class ApothekeModel {
         this.lastSavedPlayerSynthesisSkillValue = new SimpleIntegerProperty(3);
         this.lastSavedPlayerDiagnosisSkillValue = new SimpleIntegerProperty(3);
         this.skillPointsToAllocate = new SimpleIntegerProperty(5);
+        this.currentCultivarTimeLeft = new SimpleStringProperty("");
         this.playerName = new SimpleStringProperty("");
+        this.clientName = new SimpleStringProperty("");
         this.playerPortraitPath = new SimpleStringProperty("");
+        this.clientPortraitPath = new SimpleStringProperty("");
         this.disableContinueButton = new SimpleBooleanProperty(true);
+        this.nameList = DataAccess.getInstance().nameList();
+        randomizeClientName();
         debugInitializePlayerInventory();
         debugInitializePortraitPathList();
+        debugInitializeCurrentCultivarStatus();
+        debutInitializeClientPortraitPathList();
+    }
+
+    private void debutInitializeClientPortraitPathList() {
+        this.clientPortraitPathList = new ArrayList<>();
+        clientPortraitPathList.addAll(List.of(
+                "assets/images/portraits/client-portrait1.png",
+                "assets/images/portraits/client-portrait2.png",
+                "assets/images/portraits/client-portrait3.png"
+        ));
+    }
+
+    private void debugInitializeCurrentCultivarStatus() {
+        this.currentCultivarTimeLeft.setValue("1 min 18 seconds");
     }
 
     private void debugInitializePortraitPathList() {
@@ -251,4 +281,52 @@ public class ApothekeModel {
     public void setDisableContinueButton(boolean disableContinueButton) {
         this.disableContinueButton.set(disableContinueButton);
     }
+
+    public String getCurrentCultivarTimeLeft() {
+        return currentCultivarTimeLeft.get();
+    }
+
+    public SimpleStringProperty currentCultivarTimeLeftProperty() {
+        return currentCultivarTimeLeft;
+    }
+
+    public void setCurrentCultivarTimeLeft(String currentCultivarTimeLeft) {
+        this.currentCultivarTimeLeft.set(currentCultivarTimeLeft);
+    }
+
+    public NameList nameList() {
+        return nameList;
+    }
+
+
+
+    public String getClientPortraitPath() {
+        randomizeClientPortraitPath();
+        return clientPortraitPath.get();
+    }
+    private void randomizeClientPortraitPath(){
+        int size = this.clientPortraitPathList.size();
+        this.clientPortraitPath.setValue(
+                this.clientPortraitPathList.get(RANDOM.nextInt(size))
+        );
+    }
+
+    public SimpleStringProperty clientPortraitPathProperty() {
+        return clientPortraitPath;
+    }
+
+    private void randomizeClientName(){
+        int size = this.nameList.getNames().size();
+        this.clientNameProperty().setValue(
+                this.nameList.getNameAt(RANDOM.nextInt(size))
+        );
+    }
+    public String getClientName() {
+        randomizeClientName();
+        return clientName.get();
+    }
+    public SimpleStringProperty clientNameProperty() {
+        return clientName;
+    }
+
 }
