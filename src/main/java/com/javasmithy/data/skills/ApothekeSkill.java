@@ -1,4 +1,4 @@
-package com.javasmithy.skills;
+package com.javasmithy.data.skills;
 
 public enum ApothekeSkill {
     CULTIVATION("Cultivation", "Skill with growing medicinal plants."),

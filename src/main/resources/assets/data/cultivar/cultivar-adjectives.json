@@ -1,0 +1,62 @@
+[
+    {
+      "adjective": "leafy",
+      "humour": "CHOLERIC",
+      "entityType" : "CULTIVAR"
+    },
+    {
+      "adjective": "solitary",
+      "humour": "CHOLERIC",
+      "entityType" : "CULTIVAR"
+    },
+    {
+      "adjective": "raceme",
+      "humour": "CHOLERIC",
+      "entityType" : "CULTIVAR"
+    },
+    {
+      "adjective": "spike",
+      "humour": "MELANCHOLIC",
+      "entityType" : "CULTIVAR"
+    },
+    {
+      "adjective": "corymb",
+      "humour": "MELANCHOLIC",
+      "entityType" : "CULTIVAR"
+    },
+    {
+      "adjective": "umbel",
+      "humour": "MELANCHOLIC",
+      "entityType" : "CULTIVAR"
+    },
+    {
+      "adjective": "panicle",
+      "humour": "PHLEGMATIC",
+      "entityType" : "CULTIVAR"
+    },
+    {
+      "adjective": "cyme",
+      "humour": "PHLEGMATIC",
+      "entityType" : "CULTIVAR"
+    },
+    {
+      "adjective": "broad-leaf",
+      "humour": "PHLEGMATIC",
+      "entityType" : "CULTIVAR"
+    },
+    {
+      "adjective": "narrow-leaf",
+      "humour": "SANGUINE",
+      "entityType" : "CULTIVAR"
+    },
+    {
+      "adjective": "thorny",
+      "humour": "SANGUINE",
+      "entityType" : "CULTIVAR"
+    },
+    {
+      "adjective": "viny",
+      "humour": "SANGUINE",
+      "entityType" : "CULTIVAR"
+    }
+  ]

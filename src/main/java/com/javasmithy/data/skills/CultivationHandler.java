@@ -1,4 +1,4 @@
-package com.javasmithy.skills;
+package com.javasmithy.data.skills;
 
 import com.javasmithy.ApothekeModel;
 

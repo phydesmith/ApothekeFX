@@ -1,0 +1,98 @@
+ [
+    {
+      "description": "sore",
+      "humour": "PHLEGMATIC",
+      "entityType": "AILMENT",
+      "adjective": "",
+      "challengeLevel" : 10,
+      "spritePath": "assets/images/generic.png"
+    },
+    {
+      "description": "pustule",
+      "humour": "PHLEGMATIC",
+      "entityType": "AILMENT",
+      "adjective": "",
+      "challengeLevel" : 20,
+      "spritePath": "assets/images/generic.png"
+    },
+    {
+      "description": "boil",
+      "humour": "PHLEGMATIC",
+      "entityType": "AILMENT",
+      "adjective": "",
+      "challengeLevel" : 30,
+      "spritePath": "assets/images/generic.png"
+    },
+    {
+      "description": "gash",
+      "humour": "SANGUINE",
+      "entityType": "AILMENT",
+      "adjective": "",
+      "challengeLevel" : 10,
+      "spritePath": "assets/images/generic.png"
+    },
+    {
+      "description": "edema",
+      "humour": "SANGUINE",
+      "entityType": "AILMENT",
+      "adjective": "",
+      "challengeLevel" : 20,
+      "spritePath": "assets/images/generic.png"
+    },
+    {
+      "description": "goiter",
+      "humour": "SANGUINE",
+      "entityType": "AILMENT",
+      "adjective": "",
+      "challengeLevel" : 30,
+      "spritePath": "assets/images/generic.png"
+    },
+    {
+      "description": "tumor",
+      "humour": "MELANCHOLIC",
+      "entityType": "AILMENT",
+      "adjective": "",
+      "challengeLevel" : 10,
+      "spritePath": "assets/images/generic.png"
+    },
+    {
+      "description": "sprain",
+      "humour": "MELANCHOLIC",
+      "entityType": "AILMENT",
+      "adjective": "",
+      "challengeLevel" : 20,
+      "spritePath": "assets/images/generic.png"
+    },
+    {
+      "description": "infection",
+      "humour": "MELANCHOLIC",
+      "entityType": "AILMENT",
+      "adjective": "",
+      "challengeLevel" : 30,
+      "spritePath": "assets/images/generic.png"
+    },
+    {
+      "description": "ague",
+      "humour": "CHOLERIC",
+      "entityType": "AILMENT",
+      "adjective": "",
+      "challengeLevel" : 10,
+      "spritePath": "assets/images/generic.png"
+    },
+    {
+      "description": "fever",
+      "humour": "CHOLERIC",
+      "entityType": "AILMENT",
+      "adjective": "",
+      "challengeLevel" : 20,
+      "spritePath": "assets/images/generic.png"
+    },
+    {
+      "description": "convulsion",
+      "humour": "CHOLERIC",
+      "entityType": "AILMENT",
+      "adjective": "",
+      "challengeLevel" : 30,
+      "spritePath": "assets/images/generic.png"
+    }
+  ]

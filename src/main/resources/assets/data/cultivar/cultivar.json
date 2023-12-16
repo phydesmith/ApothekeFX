@@ -1,0 +1,95 @@
+[
+    {
+      "description": "chamomile",
+      "humour": "PHLEGMATIC",
+      "entityType": "CULTIVAR",
+      "growthTime" : 20,
+      "spritePath" : "assets/images/generic.png"
+    },
+    {
+      "description": "ox poppy",
+      "humour": "PHLEGMATIC",
+      "entityType": "CULTIVAR",
+      "growthTime" : 40,
+      "spritePath" : "assets/images/generic.png"
+    },
+    {
+      "description": "water cress",
+      "humour": "PHLEGMATIC",
+      "entityType": "CULTIVAR",
+      "growthTime" : 60,
+      "spritePath" : "assets/images/generic.png"
+    },
+    {
+      "description": "mint",
+      "humour": "SANGUINE",
+      "entityType": "CULTIVAR",
+      "growthTime" : 20,
+      "spritePath" : "assets/images/generic.png",
+      "adjective": ""
+    },
+    {
+      "description": "yucca",
+      "humour": "SANGUINE",
+      "entityType": "CULTIVAR",
+      "growthTime" : 40,
+      "spritePath" : "assets/images/generic.png",
+      "adjective": ""
+    },
+    {
+      "description": "echinacea",
+      "humour": "SANGUINE",
+      "entityType": "CULTIVAR",
+      "growthTime" : 60,
+      "spritePath" : "assets/images/generic.png",
+      "adjective": ""
+    },
+    {
+      "description": "chives",
+      "humour": "MELANCHOLIC",
+      "entityType": "CULTIVAR",
+      "growthTime" : 20,
+      "spritePath" : "assets/images/generic.png",
+      "adjective": ""
+    },
+    {
+      "description": "borage",
+      "humour": "MELANCHOLIC",
+      "entityType": "CULTIVAR",
+      "growthTime" : 40,
+      "spritePath" : "assets/images/generic.png",
+      "adjective": ""
+    },
+    {
+      "description": "lavender",
+      "humour": "MELANCHOLIC",
+      "entityType": "CULTIVAR",
+      "growthTime" : 60,
+      "spritePath" : "assets/images/generic.png",
+      "adjective": ""
+    },
+    {
+      "description": "ginger",
+      "humour": "CHOLERIC",
+      "entityType": "CULTIVAR",
+      "growthTime" : 20,
+      "spritePath" : "assets/images/generic.png",
+      "adjective": ""
+    },
+    {
+      "description": "lion's radish",
+      "humour": "CHOLERIC",
+      "entityType": "CULTIVAR",
+      "growthTime" : 40,
+      "spritePath" : "assets/images/generic.png",
+      "adjective": ""
+    },
+    {
+      "description": "anise",
+      "humour": "CHOLERIC",
+      "entityType": "CULTIVAR",
+      "growthTime" : 60,
+      "spritePath" : "assets/images/generic.png",
+      "adjective": ""
+    }
+  ]

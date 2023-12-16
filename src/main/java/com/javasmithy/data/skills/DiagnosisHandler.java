@@ -1,28 +1,26 @@
-package com.javasmithy.skills;
+package com.javasmithy.data.skills;
 
 import com.javasmithy.ApothekeModel;
 
-public class ExtractionHandler implements SkillResolutionHandler {
-
+public class DiagnosisHandler implements SkillResolutionHandler {
 
     @Override
     public int getSkillVal(ApothekeModel model) {
-
-        return model.getPlayerExtractionSkillValue();
+        return model.getPlayerDiagnosisSkillValue();
     }
 
     @Override
     public void setSkillVal(ApothekeModel model, int value) {
-        model.setPlayerExtractionSkillValue(value);
+        model.setPlayerDiagnosisSkillValue(value);
     }
 
     @Override
     public int getSavedSkillVal(ApothekeModel model) {
-        return model.getLastSavedPlayerExtractionSkillValue();
+        return model.getLastSavedPlayerDiagnosisSkillValue();
     }
 
     @Override
     public void setSavedSkillVal(ApothekeModel model, int value) {
-        model.setPlayerExtractionSkillValue(value);
+
     }
 }

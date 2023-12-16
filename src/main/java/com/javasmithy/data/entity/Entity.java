@@ -1,16 +1,16 @@
-package com.javasmithy.entity;
+package com.javasmithy.data.entity;
 
 import javafx.scene.image.Image;
 
 public class Entity {
     private String spritePath;
     private Image sprite;
-    private String name;
+    private String description;
 
-    public Entity(String spritePath, String name) {
+    public Entity(String spritePath, String description) {
         this.spritePath = spritePath;
         this.sprite = new Image(spritePath);
-        this.name = name;
+        this.description = description;
     }
 
     public String getSpritePath() {
@@ -29,11 +29,11 @@ public class Entity {
         this.sprite = sprite;
     }
 
-    public String getName() {
-        return name;
+    public String getDescription() {
+        return description;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

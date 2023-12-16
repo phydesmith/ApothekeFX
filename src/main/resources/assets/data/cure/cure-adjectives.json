@@ -1,0 +1,62 @@
+ [
+    {
+      "adjective": "sturdy",
+      "humour": "PHLEGMATIC",
+      "entityType" : "CURE"
+    },
+    {
+      "adjective": "keen",
+      "humour": "PHLEGMATIC",
+      "entityType" : "CURE"
+    },
+    {
+      "adjective": "curious",
+      "humour": "PHLEGMATIC",
+      "entityType" : "CURE"
+    },
+    {
+      "adjective": "creative",
+      "humour": "SANGUINE",
+      "entityType" : "CURE"
+    },
+    {
+      "adjective": "joyful",
+      "humour": "SANGUINE",
+      "entityType" : "CURE"
+    },
+    {
+      "adjective": "optimistic",
+      "humour": "SANGUINE",
+      "entityType" : "CURE"
+    },
+    {
+      "adjective": "loyal",
+      "humour": "MELANCHOLIC",
+      "entityType" : "CURE"
+    },
+    {
+      "adjective": "gentle",
+      "humour": "MELANCHOLIC",
+      "entityType" : "CURE"
+    },
+    {
+      "adjective": "selfless",
+      "humour": "MELANCHOLIC",
+      "entityType" : "CURE"
+    },
+    {
+      "adjective": "brash",
+      "humour": "CHOLERIC",
+      "entityType" : "CURE"
+    },
+    {
+      "adjective": "assertive",
+      "humour": "CHOLERIC",
+      "entityType" : "CURE"
+    },
+    {
+      "adjective": "bold",
+      "humour": "CHOLERIC",
+      "entityType" : "CURE"
+    }
+  ]

@@ -1,19 +1,17 @@
-package com.javasmithy.data;
+package com.javasmithy.data.names;
 
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.net.URL;
-import java.util.List;
 
-public class DataAccess {
-    private static DataAccess dataAccessInstance = null;
+public class NameLoader {
+    private static NameLoader nameLoaderInstance = null;
     private NameList nameList;
     private Gson gson = new Gson();
 
-    private DataAccess(){
+    private NameLoader(){
         initializeNameList();
     }
 
@@ -30,11 +28,11 @@ public class DataAccess {
         return nameList;
     }
 
-    public static DataAccess getInstance(){
-        if (dataAccessInstance == null){
-            dataAccessInstance = new DataAccess();
+    public static NameLoader getInstance(){
+        if (nameLoaderInstance == null){
+            nameLoaderInstance = new NameLoader();
         }
-        return dataAccessInstance;
+        return nameLoaderInstance;
     }
 }
 

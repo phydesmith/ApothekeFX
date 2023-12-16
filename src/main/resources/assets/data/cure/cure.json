@@ -1,0 +1,84 @@
+[
+    {
+      "description": "unguent",
+      "humour" : "CHOLERIC",
+      "entityType" : "CURE",
+      "spritePath" : "assets/images/generic.png"
+    },
+    {
+      "description": "salve",
+      "humour" : "CHOLERIC",
+      "entityType" : "CURE",
+      "spritePath" : "assets/images/generic.png"
+    },
+    {
+      "description": "balm",
+      "humour" : "CHOLERIC",
+      "entityType" : "CURE",
+      "spritePath" : "assets/images/generic.png",
+      "adjective": ""
+    },
+    {
+      "description": "ointment",
+      "humour" : "MELANCHOLIC",
+      "entityType" : "CURE",
+      "spritePath" : "assets/images/generic.png",
+      "adjective": ""
+    },
+    {
+      "description": "lotion",
+      "humour" : "MELANCHOLIC",
+      "entityType" : "CURE",
+      "spritePath" : "assets/images/generic.png",
+      "adjective": ""
+    },
+    {
+      "description": "panacea",
+      "humour" : "MELANCHOLIC",
+      "entityType" : "CURE",
+      "spritePath" : "assets/images/generic.png",
+      "adjective": ""
+    },
+    {
+      "description": "lozenge",
+      "humour" : "PHLEGMATIC",
+      "entityType" : "CURE",
+      "spritePath" : "assets/images/generic.png",
+      "adjective": ""
+    },
+    {
+      "description": "draught",
+      "humour" : "PHLEGMATIC",
+      "entityType" : "CURE",
+      "spritePath" : "assets/images/generic.png",
+      "adjective": ""
+    },
+    {
+      "description": "elixir",
+      "humour" : "PHLEGMATIC",
+      "entityType" : "CURE",
+      "spritePath" : "assets/images/generic.png",
+      "adjective": ""
+    },
+    {
+      "description": "tonic",
+      "humour" : "",
+      "entityType" : "CURE",
+      "spritePath" : "assets/images/generic.png",
+      "adjective": ""
+    },
+    {
+      "description": "cordial",
+      "humour" : "SANGUINE",
+      "entityType" : "CURE",
+      "spritePath" : "assets/images/generic.png",
+      "adjective": ""
+    },
+    {
+      "description": "ether",
+      "humour" : "SANGUINE",
+      "entityType" : "CURE",
+      "spritePath" : "assets/images/generic.png",
+      "adjective": ""
+    }
+]

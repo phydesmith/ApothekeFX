@@ -4,10 +4,12 @@ GOD BLESS THIS MESS
 
 package com.javasmithy;
 
-import com.javasmithy.entity.Entity;
-import com.javasmithy.skills.ApothekeSkill;
+import com.javasmithy.data.entity.Entity;
+import com.javasmithy.data.skills.ApothekeSkill;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -19,8 +21,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
-import javafx.scene.shape.Line;
+import javafx.scene.paint.Color;
 import javafx.util.Builder;
 import javafx.scene.control.Button;
 import javafx.util.Duration;
@@ -231,7 +236,21 @@ public class ApothekeViewBuilder implements Builder<Region> {
                 skillLinesReadOnly(ApothekeSkill.CULTIVATION, this.model.playerCultivationSkillValueProperty()),
                 skillLinesReadOnly(ApothekeSkill.DIAGNOSIS, this.model.playerDiagnosisSkillValueProperty()),
                 skillLinesReadOnly(ApothekeSkill.EXTRACTION, this.model.playerExtractionSkillValueProperty()),
-                skillLinesReadOnly(ApothekeSkill.SYNTHESIS, this.model.playerSynthesisSkillValueProperty())
+                skillLinesReadOnly(ApothekeSkill.SYNTHESIS, this.model.playerSynthesisSkillValueProperty()),
+                new HBox(
+                        labeledValue("Gold: ", this.model.playerMoneyProperty() ),
+                        labeledValue("Reputation: ", this.model.playerReputationProperty())
+                )
+        );
+    }
+    private Node labeledValue(String text, SimpleIntegerProperty value){
+        Label label = new Label();
+        label.setText(text);
+        Label valueLabel = new Label();
+        valueLabel.textProperty().bind(value.asString());
+        return new HBox(
+                label,
+                valueLabel
         );
     }
     private Node skillLinesReadOnly(ApothekeSkill skill, SimpleIntegerProperty skillValue){
@@ -281,17 +300,79 @@ public class ApothekeViewBuilder implements Builder<Region> {
     }
 
     private Node createSingleCraftingNode(){
-        ImageView imageView = new ImageView();
-        imageView.setOnDragDropped( e -> {
-
-        });
-        imageView.setFitWidth(32);
-        imageView.setFitHeight(32);
-        imageView.setPreserveRatio(true);
-        StackPane craftNode = new StackPane(imageView);
+        ImageView destinationImageView = new ImageView();
+        destinationImageView.setFitWidth(32);
+        destinationImageView.setFitHeight(32);
+        destinationImageView.setPreserveRatio(true);
+        StackPane craftNode = new StackPane(destinationImageView);
         craftNode.setMaxHeight(32);
         craftNode.setMaxWidth(32);
         craftNode.getStyleClass().add("crafting-node-bordered");
+
+        craftNode.setOnDragEntered(e -> {
+            if (e.getGestureSource() != craftNode && e.getDragboard().hasImage()) {
+                craftNode.setBackground(Background.fill(Color.AZURE));
+            }
+        });
+
+        craftNode.setOnDragExited(e -> {
+            if (e.getGestureSource() != craftNode && e.getDragboard().hasImage()) {
+                craftNode.setBackground(Background.fill(Color.LIGHTGREEN));
+            }
+        });
+
+        craftNode.setOnDragOver(e -> {
+            if (e.getGestureSource() != destinationImageView && e.getDragboard().hasImage()) {
+                e.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+            }
+            e.consume();
+        });
+
+        craftNode.setOnDragDropped(e -> {
+            Dragboard db = e.getDragboard();
+            boolean success = false;
+            if (db.hasImage()) {
+                destinationImageView.setImage(db.getImage());
+                success = true;
+            }
+            e.setDropCompleted(success);
+            e.consume();
+        });
+
+//        destinationImageView.setOnDragOver(e -> {
+//            if (e.getGestureSource() != destinationImageView && e.getDragboard().hasImage()) {
+//                e.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+//            }
+//            e.consume();
+//        });
+//
+//        destinationImageView.setOnDragEntered(e -> {
+//            if (e.getGestureSource() != destinationImageView && e.getDragboard().hasImage()) {
+//                craftNode.setBackground(Background.fill(Color.AZURE));
+//            }
+//            e.consume();
+//        });
+//
+//        destinationImageView.setOnDragExited(e -> {
+//            if (e.getGestureSource() != destinationImageView && e.getDragboard().hasImage()) {
+//                craftNode.setBackground(Background.fill(Color.LIGHTGREEN));
+//            }
+//            e.consume();
+//        });
+//
+//        destinationImageView.setOnDragDropped(e -> {
+//           Dragboard db = e.getDragboard();
+//           boolean success = false;
+//           if (db.hasImage()) {
+//               destinationImageView.setImage(db.getImage());
+//               success = true;
+//           }
+//           e.setDropCompleted(success);
+//           e.consume();
+//        });
+
+
+
         return craftNode;
     }
 
@@ -330,13 +411,35 @@ public class ApothekeViewBuilder implements Builder<Region> {
         imageView.setFitHeight(fitHeight);
         imageView.setPreserveRatio(true);
         imageView.setImage(entity.getSprite());
-        Tooltip tooltip = new Tooltip(entity.getName());
+
+        imageView.setOnDragDetected( e -> {
+            Dragboard db = imageView.startDragAndDrop(TransferMode.ANY);
+            ClipboardContent content = new ClipboardContent();
+            content.putImage(imageView.getImage());
+
+            db.setContent(content);
+            e.consume();
+
+        });
+
+        imageView.setOnDragDone( e -> {
+            if (e.getTransferMode() == TransferMode.MOVE){
+                imageView.setImage(null);
+            }
+        });
+
+        Tooltip tooltip = new Tooltip(entity.getDescription());
         tooltip.setShowDelay(Duration.ZERO);
         Tooltip.install(imageView, tooltip);
+
+
+
         return imageView;
     }
 
     private Node createClientsView() {
+        BorderPane clientViewRoot = new BorderPane();
+        clientViewRoot.getStyleClass().addAll("game-view-root", "game-background-skin");
         Image image = new Image(this.model.getClientPortraitPath());
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(165);
@@ -344,10 +447,46 @@ public class ApothekeViewBuilder implements Builder<Region> {
         imageView.setPreserveRatio(true);
         Label clientNameLabel = new Label();
         clientNameLabel.textProperty().bind(this.model.clientNameProperty());
-        return new VBox(
+        clientViewRoot.setLeft(new VBox(
                 imageView,
                 clientNameLabel
+        ));
+
+        clientViewRoot.setRight(
+                clientDescriptionLines()
         );
+
+        Button button = createButtonWithAction("Return", switchWindowEventHandler(this::createGameView));
+        BorderPane.setAlignment(button, Pos.BOTTOM_CENTER);
+        BorderPane.setMargin(button, new Insets(50));
+        clientViewRoot.setBottom(button);
+
+        return clientViewRoot;
+    }
+
+    private Node clientDescriptionLines(){
+        VBox clientLinesRoot = new VBox();
+        clientLinesRoot.getChildren().addAll(
+                createClientDescriptionLine(this.model.clientAilmentDescriptionLine1Property(), this.model.has1DiagnosisProperty()),
+                createClientDescriptionLine(this.model.clientAilmentDescriptionLine1Property(), this.model.has10DiagnosisProperty()),
+                createClientDescriptionLine(this.model.clientAilmentDescriptionLine1Property(), this.model.has20DiagnosisProperty()),
+                createClientDescriptionLine(this.model.clientAilmentDescriptionLine1Property(), this.model.has30DiagnosisProperty())
+        );
+        return clientLinesRoot;
+    }
+
+    private Node createClientDescriptionLine(SimpleStringProperty property, SimpleBooleanProperty diagnosisThresholdProperty) {
+        StackPane descriptionLineRoot = new StackPane();
+        Label hideDescriptionLabel = new Label("?????????????????????????????????????");
+        hideDescriptionLabel.visibleProperty().bind(diagnosisThresholdProperty.not());
+        Label descriptionLabel = new Label();
+        descriptionLabel.visibleProperty().bind(diagnosisThresholdProperty);
+        descriptionLabel.textProperty().bind(property);
+        descriptionLineRoot.getChildren().addAll(
+                descriptionLabel,
+                hideDescriptionLabel
+        );
+        return descriptionLineRoot;
     }
 
     private Node createMarketView() {

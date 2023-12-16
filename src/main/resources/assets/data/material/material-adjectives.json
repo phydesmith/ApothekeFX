@@ -1,0 +1,62 @@
+[
+    {
+      "adjective": "rough",
+      "humour": "PHLEGMATIC",
+      "entityType" : "MATERIAL"
+    },
+    {
+      "adjective": "grainy",
+      "humour": "PHLEGMATIC",
+      "entityType" : "MATERIAL"
+    },
+    {
+      "adjective": "complex",
+      "humour": "PHLEGMATIC",
+      "entityType" : "MATERIAL"
+    },
+    {
+      "adjective": "aerated",
+      "humour": "SANGUINE",
+      "entityType" : "MATERIAL"
+    },
+    {
+      "adjective": "soft",
+      "humour": "SANGUINE",
+      "entityType" : "MATERIAL"
+    },
+    {
+      "adjective": "supreme",
+      "humour": "SANGUINE",
+      "entityType" : "MATERIAL"
+    },
+    {
+      "adjective": "colorful",
+      "humour": "MELANCHOLIC",
+      "entityType" : "MATERIAL"
+    },
+    {
+      "adjective": "textured",
+      "humour": "MELANCHOLIC",
+      "entityType" : "MATERIAL"
+    },
+    {
+      "adjective": "smooth",
+      "humour": "MELANCHOLIC",
+      "entityType" : "MATERIAL"
+    },
+    {
+      "adjective": "compact",
+      "humour": "CHOLERIC",
+      "entityType" : "MATERIAL"
+    },
+    {
+      "adjective": "watery",
+      "humour": "CHOLERIC",
+      "entityType" : "MATERIAL"
+    },
+    {
+      "adjective": "mashed",
+      "humour": "CHOLERIC",
+      "entityType" : "MATERIAL"
+    }
+  ]

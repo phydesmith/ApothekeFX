@@ -1,8 +1,8 @@
 package com.javasmithy;
 
-import com.javasmithy.data.DataAccess;
-import com.javasmithy.data.NameList;
-import com.javasmithy.entity.Entity;
+import com.javasmithy.data.names.NameLoader;
+import com.javasmithy.data.names.NameList;
+import com.javasmithy.data.entity.Entity;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -16,6 +16,7 @@ import java.util.Random;
 
 public class ApothekeModel {
     private final Random RANDOM = new Random();
+
     private SimpleStringProperty currentCultivarTimeLeft;
     private SimpleIntegerProperty playerCultivationSkillValue;
     private SimpleIntegerProperty playerExtractionSkillValue;
@@ -34,8 +35,18 @@ public class ApothekeModel {
     private LinkedList<String> portraitPathList;
     private List<String> clientPortraitPathList;
     private SimpleBooleanProperty disableContinueButton;
-
     private final NameList nameList;
+    private final SimpleBooleanProperty has1Diagnosis;
+    private SimpleBooleanProperty has10Diagnosis;
+    private SimpleBooleanProperty has20Diagnosis;
+    private SimpleBooleanProperty has30Diagnosis;
+    private SimpleStringProperty clientAilmentDescriptionLine1;
+    private SimpleStringProperty clientAilmentDescriptionLine2;
+    private SimpleStringProperty clientAilmentDescriptionLine3;
+    private SimpleStringProperty clientAilmentDescriptionLine4;
+
+    private SimpleIntegerProperty playerReputation;
+    private SimpleIntegerProperty playerMoney;
 
     public ApothekeModel() {
         this.playerCultivationSkillValue = new SimpleIntegerProperty(3);
@@ -53,7 +64,17 @@ public class ApothekeModel {
         this.playerPortraitPath = new SimpleStringProperty("");
         this.clientPortraitPath = new SimpleStringProperty("");
         this.disableContinueButton = new SimpleBooleanProperty(true);
-        this.nameList = DataAccess.getInstance().nameList();
+        this.nameList = NameLoader.getInstance().nameList();
+        this.has1Diagnosis = new SimpleBooleanProperty(true);
+        this.has10Diagnosis = new SimpleBooleanProperty(false);
+        this.has20Diagnosis = new SimpleBooleanProperty(false);
+        this.has30Diagnosis = new SimpleBooleanProperty(false);
+        this.clientAilmentDescriptionLine1 = new SimpleStringProperty("");
+        this.clientAilmentDescriptionLine2 = new SimpleStringProperty("");
+        this.clientAilmentDescriptionLine3 = new SimpleStringProperty("");
+        this.clientAilmentDescriptionLine4 = new SimpleStringProperty("");
+        this.playerMoney = new SimpleIntegerProperty(200);
+        this.playerReputation = new SimpleIntegerProperty(10);
         randomizeClientName();
         debugInitializePlayerInventory();
         debugInitializePortraitPathList();
@@ -329,4 +350,143 @@ public class ApothekeModel {
         return clientName;
     }
 
+    public void setClientName(String clientName) {
+        this.clientName.set(clientName);
+    }
+
+    public void setClientPortraitPath(String clientPortraitPath) {
+        this.clientPortraitPath.set(clientPortraitPath);
+    }
+
+    public List<String> getClientPortraitPathList() {
+        return clientPortraitPathList;
+    }
+
+    public void setClientPortraitPathList(List<String> clientPortraitPathList) {
+        this.clientPortraitPathList = clientPortraitPathList;
+    }
+
+    public boolean isDisableContinueButton() {
+        return disableContinueButton.get();
+    }
+
+    public boolean isHas10Diagnosis() {
+        return has10Diagnosis.get();
+    }
+
+    public SimpleBooleanProperty has10DiagnosisProperty() {
+        return has10Diagnosis;
+    }
+
+    public void setHas10Diagnosis(boolean has10Diagnosis) {
+        this.has10Diagnosis.set(has10Diagnosis);
+    }
+
+    public boolean isHas20Diagnosis() {
+        return has20Diagnosis.get();
+    }
+
+    public SimpleBooleanProperty has20DiagnosisProperty() {
+        return has20Diagnosis;
+    }
+
+    public void setHas20Diagnosis(boolean has20Diagnosis) {
+        this.has20Diagnosis.set(has20Diagnosis);
+    }
+
+    public boolean isHas30Diagnosis() {
+        return has30Diagnosis.get();
+    }
+
+    public SimpleBooleanProperty has30DiagnosisProperty() {
+        return has30Diagnosis;
+    }
+
+    public void setHas30Diagnosis(boolean has30Diagnosis) {
+        this.has30Diagnosis.set(has30Diagnosis);
+    }
+
+    public String getClientAilmentDescriptionLine1() {
+        return clientAilmentDescriptionLine1.get();
+    }
+
+    public SimpleStringProperty clientAilmentDescriptionLine1Property() {
+        return clientAilmentDescriptionLine1;
+    }
+
+    public void setClientAilmentDescriptionLine1(String clientAilmentDescriptionLine1) {
+        this.clientAilmentDescriptionLine1.set(clientAilmentDescriptionLine1);
+    }
+
+    public String getClientAilmentDescriptionLine2() {
+        return clientAilmentDescriptionLine2.get();
+    }
+
+    public SimpleStringProperty clientAilmentDescriptionLine2Property() {
+        return clientAilmentDescriptionLine2;
+    }
+
+    public void setClientAilmentDescriptionLine2(String clientAilmentDescriptionLine2) {
+        this.clientAilmentDescriptionLine2.set(clientAilmentDescriptionLine2);
+    }
+
+    public String getClientAilmentDescriptionLine3() {
+        return clientAilmentDescriptionLine3.get();
+    }
+
+    public SimpleStringProperty clientAilmentDescriptionLine3Property() {
+        return clientAilmentDescriptionLine3;
+    }
+
+    public void setClientAilmentDescriptionLine3(String clientAilmentDescriptionLine3) {
+        this.clientAilmentDescriptionLine3.set(clientAilmentDescriptionLine3);
+    }
+
+    public String getClientAilmentDescriptionLine4() {
+        return clientAilmentDescriptionLine4.get();
+    }
+
+    public SimpleStringProperty clientAilmentDescriptionLine4Property() {
+        return clientAilmentDescriptionLine4;
+    }
+
+    public void setClientAilmentDescriptionLine4(String clientAilmentDescriptionLine4) {
+        this.clientAilmentDescriptionLine4.set(clientAilmentDescriptionLine4);
+    }
+
+    public boolean isHas1Diagnosis() {
+        return has1Diagnosis.get();
+    }
+
+    public SimpleBooleanProperty has1DiagnosisProperty() {
+        return has1Diagnosis;
+    }
+
+    public void setHas1Diagnosis(boolean has1Diagnosis) {
+        this.has1Diagnosis.set(has1Diagnosis);
+    }
+
+    public int getPlayerReputation() {
+        return playerReputation.get();
+    }
+
+    public SimpleIntegerProperty playerReputationProperty() {
+        return playerReputation;
+    }
+
+    public void setPlayerReputation(int playerReputation) {
+        this.playerReputation.set(playerReputation);
+    }
+
+    public int getPlayerMoney() {
+        return playerMoney.get();
+    }
+
+    public SimpleIntegerProperty playerMoneyProperty() {
+        return playerMoney;
+    }
+
+    public void setPlayerMoney(int playerMoney) {
+        this.playerMoney.set(playerMoney);
+    }
 }

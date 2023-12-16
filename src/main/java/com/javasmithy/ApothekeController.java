@@ -1,6 +1,6 @@
 package com.javasmithy;
 
-import com.javasmithy.skills.ApothekeSkill;
+import com.javasmithy.data.skills.ApothekeSkill;
 import javafx.scene.Parent;
 import javafx.scene.layout.Region;
 import javafx.util.Builder;

@@ -1,0 +1,62 @@
+[
+    {
+      "adjective": "bleary",
+      "humour": "PHLEGMATIC",
+      "entityType" : "AILMENT"
+    },
+    {
+      "adjective": "aching",
+      "humour": "PHLEGMATIC",
+      "entityType" : "AILMENT"
+    },
+    {
+      "adjective": "stiff",
+      "humour": "PHLEGMATIC",
+      "entityType" : "AILMENT"
+    },
+    {
+      "adjective": "acidic",
+      "humour": "SANGUINE",
+      "entityType" : "AILMENT"
+    },
+    {
+      "adjective": "burning",
+      "humour": "SANGUINE",
+      "entityType" : "AILMENT"
+    },
+    {
+      "adjective": "weeping",
+      "humour": "SANGUINE",
+      "entityType" : "AILMENT"
+    },
+    {
+      "adjective": "squamous",
+      "humour": "MELANCHOLIC",
+      "entityType" : "AILMENT"
+    },
+    {
+      "adjective": "deep",
+      "humour": "MELANCHOLIC",
+      "entityType" : "AILMENT"
+    },
+    {
+      "adjective": "persistent",
+      "humour": "MELANCHOLIC",
+      "entityType" : "AILMENT"
+    },
+    {
+      "adjective": "stinging",
+      "humour": "CHOLERIC",
+      "entityType" : "AILMENT"
+    },
+    {
+      "adjective": "caustic",
+      "humour": "CHOLERIC",
+      "entityType" : "AILMENT"
+    },
+    {
+      "adjective": "chafed",
+      "humour": "CHOLERIC",
+      "entityType" : "AILMENT"
+    }
+  ]

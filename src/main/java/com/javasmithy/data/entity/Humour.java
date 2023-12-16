@@ -1,6 +1,6 @@
-package com.javasmithy.data;
+package com.javasmithy.data.entity;
 
-public enum Humours {
+public enum Humour {
     CHOLERIC,
     MELANCHOLIC,
     PHLEGMATIC,

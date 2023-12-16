@@ -1,6 +1,6 @@
 package com.javasmithy;
 
-import com.javasmithy.skills.*;
+import com.javasmithy.data.skills.*;
 
 import java.util.HashMap;
 import java.util.Map;

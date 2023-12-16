@@ -1,0 +1,86 @@
+[
+    {
+      "description": "beeswax",
+      "humour": "PHLEGMATIC",
+      "entityType": "MATERIAL",
+      "spritePath": "assets/images/generic.png",
+      "adjective": ""
+    },
+    {
+      "description": "clay",
+      "humour": "PHLEGMATIC",
+      "entityType": "MATERIAL",
+      "spritePath": "assets/images/generic.png",
+      "adjective": ""
+    },
+    {
+      "description": "silt",
+      "humour": "PHLEGMATIC",
+      "entityType": "MATERIAL",
+      "spritePath": "assets/images/generic.png",
+      "adjective": ""
+    },
+    {
+      "description": "cupfer",
+      "humour": "MELANCHOLIC",
+      "entityType": "MATERIAL",
+      "spritePath" : "assets/images/generic.png",
+      "adjective": ""
+    },
+    {
+      "description": "ferrite",
+      "humour": "MELANCHOLIC",
+      "entityType": "MATERIAL",
+      "spritePath" : "assets/images/generic.png",
+      "adjective": ""
+    },
+    {
+      "description": "silver",
+      "humour": "MELANCHOLIC",
+      "entityType": "MATERIAL",
+      "spritePath" : "assets/images/generic.png",
+      "adjective": ""
+    },
+    {
+      "description": "offal",
+      "humour": "sanguine",
+      "entityType": "MATERIAL",
+      "spritePath" : "assets/images/generic.png",
+      "adjective": ""
+    },
+    {
+      "description": "sinew",
+      "humour": "sanguine",
+      "entityType": "MATERIAL",
+      "spritePath" : "assets/images/generic.png",
+      "adjective": ""
+    },
+    {
+      "description": "bladder",
+      "humour": "sanguine",
+      "entityType": "MATERIAL",
+      "spritePath" : "assets/images/generic.png",
+      "adjective": ""
+    },
+    {
+      "description": "fibers",
+      "humour": "CHOLERIC",
+      "entityType": "MATERIAL",
+      "spritePath" : "assets/images/generic.png",
+      "adjective": ""
+    },
+    {
+      "description": "scrapings",
+      "humour": "CHOLERIC",
+      "entityType": "MATERIAL",
+      "spritePath" : "assets/images/generic.png",
+      "adjective": ""
+    },
+    {
+      "description": "aqua regia",
+      "humour": "CHOLERIC",
+      "entityType": "MATERIAL",
+      "spritePath" : "assets/images/generic.png",
+      "adjective": ""
+    }
+  ]

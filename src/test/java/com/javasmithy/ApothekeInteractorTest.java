@@ -1,6 +1,6 @@
 package com.javasmithy;
 
-import com.javasmithy.skills.ApothekeSkill;
+import com.javasmithy.data.skills.ApothekeSkill;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

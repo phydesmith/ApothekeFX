@@ -1,4 +1,4 @@
-package com.javasmithy.data;
+package com.javasmithy.data.names;
 
 import java.util.List;
 
