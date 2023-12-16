@@ -38,6 +38,9 @@ import java.util.function.Supplier;
 
 import static com.javasmithy.widgetsfx.ButtonWidgets.*;
 
+/**
+ * Contains all the logic for building the view
+ */
 public class ApothekeViewBuilder implements Builder<Region> {
 
     private final ApothekeModel model;
@@ -54,6 +57,10 @@ public class ApothekeViewBuilder implements Builder<Region> {
         this.playerPortraitPathHandler = playerPortraitPathHandler;
     }
 
+    /**
+     * The root of the scene
+     * @return - the root Region of the scene
+     */
     @Override
     public Region build() {
         root.getStylesheets().add("style/style.css");
@@ -61,6 +68,11 @@ public class ApothekeViewBuilder implements Builder<Region> {
         return root;
     }
 
+    /**
+     * An event handler to specify the next view method to load
+     * @param destination - the next method call to create in the form of a supplier
+     * @return - an event handler that points to next view to create, uses supplier to call method
+     */
     private EventHandler<ActionEvent> switchWindowEventHandler(Supplier<Node> destination){
         return e -> {
             this.root.getChildren().clear();
@@ -69,11 +81,19 @@ public class ApothekeViewBuilder implements Builder<Region> {
         };
     }
 
+    /**
+     * An event handler specific to character creation, sets 'continue' button to enabled
+     * @param destination - the next method call to create in the form of a supplier
+     * @return - an event handler that points to next view to create, uses supplier to call method
+     */
     private EventHandler<ActionEvent> characterCreationSubmitHandler(Supplier<Node> destination){
         this.model.setDisableContinueButton(false);
         return switchWindowEventHandler(destination);
     }
 
+    /**
+     * Helper method that resizes window to ensure newly loaded view is resized correctly
+     */
     private void resizeWindow(){
         Platform.runLater( () -> {
             this.root.getScene().getWindow().sizeToScene();

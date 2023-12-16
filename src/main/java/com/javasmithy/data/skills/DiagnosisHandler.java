@@ -2,6 +2,9 @@ package com.javasmithy.data.skills;
 
 import com.javasmithy.ApothekeModel;
 
+/**
+ * Concrete class for handling skill resolution actions related to Diagnosis.
+ */
 public class DiagnosisHandler implements SkillResolutionHandler {
 
     @Override

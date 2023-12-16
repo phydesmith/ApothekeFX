@@ -14,6 +14,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Contains all the properties and some instantiation methods for the "Model" of the MVCI
+ */
 public class ApothekeModel {
     private final Random RANDOM = new Random();
 

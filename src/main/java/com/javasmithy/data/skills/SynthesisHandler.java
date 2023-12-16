@@ -2,8 +2,10 @@ package com.javasmithy.data.skills;
 
 import com.javasmithy.ApothekeModel;
 
+/**
+ * Concrete class for handling skill resolution actions related to Synthesis.
+ */
 public class SynthesisHandler implements SkillResolutionHandler {
-
 
     @Override
     public int getSkillVal(ApothekeModel model) {

@@ -2,6 +2,9 @@ package com.javasmithy.data.skills;
 
 import com.javasmithy.ApothekeModel;
 
+/**
+ * Concrete class for handling skill resolution actions related to Cultivation.
+ */
 public class CultivationHandler implements SkillResolutionHandler {
 
     @Override

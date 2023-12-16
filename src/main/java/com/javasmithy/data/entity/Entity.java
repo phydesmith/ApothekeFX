@@ -2,9 +2,21 @@ package com.javasmithy.data.entity;
 
 import javafx.scene.image.Image;
 
+/**
+ * Base entity class for game objects but also stait GUI objects
+ */
 public class Entity {
+    /**
+     * the filepath for the image
+     */
     private String spritePath;
+    /**
+     * an image object that is loaded from the spritepath
+     */
     private Image sprite;
+    /**
+     * a description or name of the object
+     */
     private String description;
 
     public Entity(String spritePath, String description) {

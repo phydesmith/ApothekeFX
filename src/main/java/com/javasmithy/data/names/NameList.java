@@ -2,6 +2,10 @@ package com.javasmithy.data.names;
 
 import java.util.List;
 
+/**
+ *
+ * A helper class for loading names from json format.
+ */
 public class NameList {
     private List<String> names;
 
