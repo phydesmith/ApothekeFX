@@ -17,9 +17,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
@@ -28,7 +26,6 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.util.Builder;
-import javafx.scene.control.Button;
 import javafx.util.Duration;
 import javafx.util.converter.NumberStringConverter;
 
@@ -306,7 +303,14 @@ public class ApothekeViewBuilder implements Builder<Region> {
 
     private Node createInventoryButton() {
         return ButtonWidgets.createButtonWithAction("Inventory", e -> {
-
+            ButtonType loginButtonType = new ButtonType("Login", ButtonBar.ButtonData.OK_DONE);
+            Dialog<String> dialog = new Dialog<>();
+            dialog.setTitle("Login Dialog");
+            dialog.setContentText("Would you like to log in?");
+            dialog.getDialogPane().getButtonTypes().add(loginButtonType);
+            boolean disabled = false; // computed based on content of text fields, for example
+            dialog.getDialogPane().lookupButton(loginButtonType).setDisable(disabled);
+            dialog.showAndWait();
         });
     }
 
