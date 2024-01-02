@@ -6,6 +6,7 @@ package com.javasmithy;
 
 import com.javasmithy.data.entity.Entity;
 import com.javasmithy.data.skills.ApothekeSkill;
+import com.javasmithy.widgetsfx.ButtonWidgets;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -290,6 +291,8 @@ public class ApothekeViewBuilder implements Builder<Region> {
 
     private Node createCultivationView() {
         BorderPane cultivationRoot = new BorderPane();
+
+        cultivationRoot.setTop(createInventoryButton());
         cultivationRoot.getStyleClass().add("game-view-root");
         cultivationRoot.getStyleClass().add("game-background-skin");
         cultivationRoot.setRight(createInventoryViewPane(12, Orientation.VERTICAL));
@@ -299,6 +302,12 @@ public class ApothekeViewBuilder implements Builder<Region> {
         BorderPane.setMargin(button, new Insets(20));
         cultivationRoot.setBottom(button);
         return cultivationRoot;
+    }
+
+    private Node createInventoryButton() {
+        return ButtonWidgets.createButtonWithAction("Inventory", e -> {
+
+        });
     }
 
     private Node createGardenPlotView(){
